@@ -43,12 +43,12 @@
 
 <meta name="description" content="acg&amp;programming sharing">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:title" content="Winry's">
+<meta property="og:url" content="http://winry.me/index.html">
+<meta property="og:site_name" content="Winry's">
 <meta property="og:description" content="acg&amp;programming sharing">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Winry's">
 <meta name="twitter:description" content="acg&amp;programming sharing">
 
 
@@ -59,7 +59,7 @@
   };
 </script>
 
-  <title> Hexo </title>
+  <title> Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -89,7 +89,7 @@
       <span class="logo">
         <i class="icon-next-logo"></i>
       </span>
-      <span class="site-title">Hexo</span>
+      <span class="site-title">Winry's</span>
   </a>
   <span class="logo-line-after"><i></i></span>
 </h1>
@@ -160,7 +160,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/09/23/java8-mixin/" itemprop="url">
+              <a class="post-title-link" href="/2015/09/24/java8-mixin/" itemprop="url">
                 java8-mixin
               </a>
             
@@ -171,8 +171,8 @@
       <div class="post-meta">
         <span class="post-time">
           發表於
-          <time itemprop="dateCreated" datetime="2015-09-23T19:50:25+08:00" content="2015-09-23">
-            2015-09-23
+          <time itemprop="dateCreated" datetime="2015-09-24T00:00:44+08:00" content="2015-09-24">
+            2015-09-24
           </time>
         </span>
 
@@ -182,8 +182,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/09/23/java8-mixin/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/23/java8-mixin/" itemprop="commentsCount"></span>
+            <a href="/2015/09/24/java8-mixin/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/24/java8-mixin/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -207,7 +207,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">AbsIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String s;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">StringIterator</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.s = s;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> i &lt; s.length();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Character <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Character character = s.charAt(i);</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">return</span> character;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>We would like to combine the functionality of StringIterator and RichIterator into a single class. With single inheritance and interfaces alone this is impossible, as both classes contain member impementations with code. It allows the programmers to reuse the delta of a class definition, i.e., all new definitions that are not inherited. This mechanism makes it possible to combineStringIterator with RichIterator, as is done in the following test program which prints a column of all the characters of a given string.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIteratorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Iter iter = <span class="keyword">new</span> Iter(<span class="string">"test"</span>);</span><br><span class="line">		iter.foreach(System.out::println);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Iter</span> <span class="keyword">extends</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">RichIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Iter</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">super</span>(s);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参考<a href="http://www.scala-lang.org/old/node/117" target="_blank" rel="external">scala-mixin</a></p>
+<p>参考:<a href="http://www.scala-lang.org/old/node/117" target="_blank" rel="external">scala-mixin</a></p>
 </span>
         
       
