@@ -41,19 +41,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="java8开始接口支持了默认方法,从此mixin也变为可能了。
+Consider the following abstraction for iterators.
+123456public interface AbsIterator&amp;lt;T&amp;gt; &amp;#123;	public boolean hasNext();	public T next();&amp;#125;
+Next, consider a m">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2015/09/23/hello-world/index.html">
+<meta property="og:title" content="java8-mixin">
+<meta property="og:url" content="http://yoursite.com/2015/09/23/java8-mixin/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-09-23T10:40:58.422Z">
+<meta property="og:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了。
+Consider the following abstraction for iterators.
+123456public interface AbsIterator&amp;lt;T&amp;gt; &amp;#123;	public boolean hasNext();	public T next();&amp;#125;
+Next, consider a m">
+<meta property="og:updated_time" content="2015-09-23T11:50:25.016Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="java8-mixin">
+<meta name="twitter:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了。
+Consider the following abstraction for iterators.
+123456public interface AbsIterator&amp;lt;T&amp;gt; &amp;#123;	public boolean hasNext();	public T next();&amp;#125;
+Next, consider a m">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -63,7 +69,7 @@ Quick">
   };
 </script>
 
-  <title> Hello World | Hexo </title>
+  <title> java8-mixin | Hexo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -162,7 +168,7 @@ Quick">
           
           
             
-              Hello World
+              java8-mixin
             
           
         </h1>
@@ -171,7 +177,7 @@ Quick">
       <div class="post-meta">
         <span class="post-time">
           發表於
-          <time itemprop="dateCreated" datetime="2015-09-23T18:40:58+08:00" content="2015-09-23">
+          <time itemprop="dateCreated" datetime="2015-09-23T19:50:25+08:00" content="2015-09-23">
             2015-09-23
           </time>
         </span>
@@ -182,8 +188,8 @@ Quick">
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/09/23/hello-world/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/23/hello-world/" itemprop="commentsCount"></span>
+            <a href="/2015/09/23/java8-mixin/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/23/java8-mixin/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -197,15 +203,16 @@ Quick">
       
 
       
-        <span itemprop="articleBody"><p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <span itemprop="articleBody"><p>java8开始接口支持了默认方法,从此mixin也变为可能了。</p>
+<p>Consider the following abstraction for iterators.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Next, consider a mixin class which extends AbsIterator with a method foreach which applies a given function to every element returned by the iterator.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RichIterator</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">default</span> <span class="keyword">void</span> <span class="title">foreach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; consumer)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">while</span> (hasNext())</span><br><span class="line">			consumer.accept(next());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Here is a concrete iterator class, which returns successive characters of a given string:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">AbsIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String s;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">StringIterator</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.s = s;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> i &lt; s.length();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Character <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Character character = s.charAt(i);</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">return</span> character;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We would like to combine the functionality of StringIterator and RichIterator into a single class. With single inheritance and interfaces alone this is impossible, as both classes contain member impementations with code. It allows the programmers to reuse the delta of a class definition, i.e., all new definitions that are not inherited. This mechanism makes it possible to combineStringIterator with RichIterator, as is done in the following test program which prints a column of all the characters of a given string.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIteratorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Iter iter = <span class="keyword">new</span> Iter(<span class="string">"test"</span>);</span><br><span class="line">		iter.foreach(System.out::println);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Iter</span> <span class="keyword">extends</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">RichIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Iter</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">super</span>(s);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考<a href="http://www.scala-lang.org/old/node/117" target="_blank" rel="external">scala-mixin</a></p>
 </span>
       
     </div>
@@ -217,11 +224,11 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/23/java8-mixin/" rel="prev">java8-mixin</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/23/hello-world/" rel="next">Hello World</a>
             
           </div>
         </div>
@@ -329,7 +336,7 @@ Quick">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick_Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create_a_new_post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run_server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate_static_files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy_to_remote_sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目錄</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -383,9 +390,9 @@ Quick">
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = '2015/09/23/hello-world/';
-      var disqus_title = 'Hello World';
-      var disqus_url = 'http://yoursite.com/2015/09/23/hello-world/';
+      var disqus_identifier = '2015/09/23/java8-mixin/';
+      var disqus_title = 'java8-mixin';
+      var disqus_url = 'http://yoursite.com/2015/09/23/java8-mixin/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
