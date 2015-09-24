@@ -41,25 +41,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="java8开始接口支持了默认方法,从此mixin也变为可能了。
-Consider the following abstraction for iterators.
-123456public interface AbsIterator&amp;lt;T&amp;gt; &amp;#123;	public boolean hasNext();	public T next();&amp;#125;
-Next, consider a m">
+<meta name="description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
+先来看看mixin是什么:
+
+In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8-mixin">
 <meta property="og:url" content="http://winry.me/2015/09/15/java8-mixin/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了。
-Consider the following abstraction for iterators.
-123456public interface AbsIterator&amp;lt;T&amp;gt; &amp;#123;	public boolean hasNext();	public T next();&amp;#125;
-Next, consider a m">
-<meta property="og:updated_time" content="2015-09-23T16:05:24.206Z">
+<meta property="og:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
+先来看看mixin是什么:
+
+In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
+<meta property="og:updated_time" content="2015-09-24T03:17:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-mixin">
-<meta name="twitter:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了。
-Consider the following abstraction for iterators.
-123456public interface AbsIterator&amp;lt;T&amp;gt; &amp;#123;	public boolean hasNext();	public T next();&amp;#125;
-Next, consider a m">
+<meta name="twitter:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
+先来看看mixin是什么:
+
+In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -203,8 +203,8 @@ Next, consider a m">
             &nbsp; | &nbsp; 分類於
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Java/" itemprop="url" rel="index">
-                  <span itemprop="name">Java</span>
+                <a href="/categories/Programming/" itemprop="url" rel="index">
+                  <span itemprop="name">Programming</span>
                 </a>
               </span>
 
@@ -234,14 +234,20 @@ Next, consider a m">
       
 
       
-        <span itemprop="articleBody"><p>java8开始接口支持了默认方法,从此mixin也变为可能了。</p>
-<p>Consider the following abstraction for iterators.</p>
+        <span itemprop="articleBody"><p>java8开始接口支持了默认方法,从此mixin也变为可能了.</p>
+<p>先来看看mixin是什么:</p>
+<blockquote>
+<p>In object-oriented programming languages, a mixin is a class that contains a <strong><em>combination</em></strong> of methods from other classes. How such a combination is done depends on the language. If a combination contains all methods of combined classes, it is equivalent to <strong><em>multiple inheritance</em></strong>. Mixins are sometimes described as being “included” rather than “inherited”.</p>
+<p>Mixins encourage code reuse and can be used to avoid the inheritance ambiguity that multiple inheritance can cause (the “<a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem" target="_blank" rel="external">diamond problem</a>“), or to work around lack of support for multiple inheritance in a language. A mixin can also be viewed as an <strong><em>interface with implemented methods</em></strong>.</p>
+</blockquote>
+<p>mixin混合了其他类的功能但是又不会引发多重继承的问题.</p>
+<p>下面是一个简单的迭代器.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Next, consider a mixin class which extends AbsIterator with a method foreach which applies a given function to every element returned by the iterator.</p>
+<p>给上面的迭代器增加了foreach方法,接收一个consumer,<br>对每个元素执行相同的操作.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RichIterator</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">default</span> <span class="keyword">void</span> <span class="title">foreach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; consumer)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">while</span> (hasNext())</span><br><span class="line">			consumer.accept(next());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Here is a concrete iterator class, which returns successive characters of a given string:</p>
+<p>一个基于String的实现.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">AbsIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String s;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">StringIterator</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.s = s;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> i &lt; s.length();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Character <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Character character = s.charAt(i);</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">return</span> character;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>We would like to combine the functionality of StringIterator and RichIterator into a single class. With single inheritance and interfaces alone this is impossible, as both classes contain member impementations with code. It allows the programmers to reuse the delta of a class definition, i.e., all new definitions that are not inherited. This mechanism makes it possible to combineStringIterator with RichIterator, as is done in the following test program which prints a column of all the characters of a given string.</p>
+<p>最后是一个测试类.<br>测试用的迭代器即有StringIterator的实现,<br>又具有RichIterator的foreach方法.<br>在java8以前我们要怎么做这件事呢,<br>似乎是没法做,<br>由于接口没有默认方法,<br>我们必须在每个迭代器实现中重写foreach方法.<br>mixin增强了代码的重用能力.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIteratorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Iter iter = <span class="keyword">new</span> Iter(<span class="string">"test"</span>);</span><br><span class="line">		iter.foreach(System.out::println);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Iter</span> <span class="keyword">extends</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">RichIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Iter</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">super</span>(s);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>参考:<a href="http://www.scala-lang.org/old/node/117" target="_blank" rel="external">scala-mixin</a></p>
 </span>
