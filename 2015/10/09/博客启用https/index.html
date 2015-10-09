@@ -42,21 +42,21 @@
 
 
 <meta name="description" content="CloudFlare是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,网站就可以使用https访问了.ssllabs的测试结果:从图中可以看到,浏览器必须支持sni.
-然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script，然后在 layout/_layout.swig 中 include 进去。
+然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script,然后在 layout/_layout.swig 中 include 进去.
 12">
 <meta property="og:type" content="article">
 <meta property="og:title" content="博客启用https(支持hexo)">
 <meta property="og:url" content="https://winry.me/2015/10/09/博客启用https/index.html">
 <meta property="og:site_name" content="Winry's">
 <meta property="og:description" content="CloudFlare是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,网站就可以使用https访问了.ssllabs的测试结果:从图中可以看到,浏览器必须支持sni.
-然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script，然后在 layout/_layout.swig 中 include 进去。
+然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script,然后在 layout/_layout.swig 中 include 进去.
 12">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/814ae383gw1ewuuix0urzj20mk0cumzo.jpg">
-<meta property="og:updated_time" content="2015-10-09T10:35:21.129Z">
+<meta property="og:updated_time" content="2015-10-09T10:38:55.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="博客启用https(支持hexo)">
 <meta name="twitter:description" content="CloudFlare是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,网站就可以使用https访问了.ssllabs的测试结果:从图中可以看到,浏览器必须支持sni.
-然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script，然后在 layout/_layout.swig 中 include 进去。
+然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script,然后在 layout/_layout.swig 中 include 进去.
 12">
 
 
@@ -248,8 +248,8 @@
 
       
         <span itemprop="articleBody"><ol>
-<li><a href="https://www.cloudflare.com/" target="_blank" rel="external">CloudFlare</a>是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,<br>网站就可以使用https访问了.<br><a href="https://www.ssllabs.com" target="_blank" rel="external">ssllabs</a>的测试结果:<br><img src="http://ww2.sinaimg.cn/large/814ae383gw1ewuuix0urzj20mk0cumzo.jpg" alt=""><br>从图中可以看到,浏览器必须支持sni.</li>
-<li><p>然后就是让用户的http请求跳转到https.<br>在 <code>layout/_scripts</code> 目录下加一个 script，然后在 <code>layout/_layout.swig</code> 中 include 进去。</p>
+<li><a href="https://www.cloudflare.com/" target="_blank" rel="external">CloudFlare</a>是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,<br>网站就可以使用https访问了.<br><a href="https://www.ssllabs.com" target="_blank" rel="external">ssllabs</a>的测试结果:<br><img src="http://ww2.sinaimg.cn/large/814ae383gw1ewuuix0urzj20mk0cumzo.jpg" alt="result"><br>从图中可以看到,浏览器必须支持sni.</li>
+<li><p>然后就是让用户的http请求跳转到https.<br>在 <code>layout/_scripts</code> 目录下加一个 script,然后在 <code>layout/_layout.swig</code> 中 include 进去.</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="keyword">var</span> host = <span class="string">"yoursite.com"</span>;</span><br><span class="line">    <span class="keyword">if</span> ((host == <span class="built_in">window</span>.location.host) &amp;&amp; (<span class="built_in">window</span>.location.protocol != <span class="string">"https:"</span>))</span><br><span class="line">        <span class="built_in">window</span>.location.protocol = <span class="string">"https"</span>;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>设置网站的url,让google等搜索引擎知道你正在使用ssl.<br>在<code>_config.yml</code>中增加:</p>
