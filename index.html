@@ -191,6 +191,113 @@
           
           
             
+              <a class="post-title-link" href="/2015/10/13/java内存探险/" itemprop="url">
+                java内存探险(待续)
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          發表於
+          <time itemprop="dateCreated" datetime="2015-10-13T00:00:00+08:00" content="2015-10-13">
+            2015-10-13
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分類於
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Programming/" itemprop="url" rel="index">
+                  <span itemprop="name">Programming</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/10/13/java内存探险/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/13/java内存探险/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>之前写的b站直播订阅通知的程序内存占用始终不能满意,<br>想到java是跑在jvm上的,<br>是否jvm本身就需要占用那么多的内存呢,<br>决定打开jconsole来看一看.<br>java内存分为堆和非堆,来看定义:</p>
+<blockquote>
+<h5 id="Heap_memory">Heap memory</h5><p>The heap memory is the runtime data area from which the Java VM allocates memory for all class instances and arrays. The heap may be of a fixed or variable size. The garbage collector is an automatic memory management system that reclaims heap memory for objects.</p>
+<ul>
+<li><p>Eden Space: The pool from which memory is initially allocated for most objects.</p>
+</li>
+<li><p>Survivor Space: The pool containing objects that have survived the garbage collection of the Eden space.</p>
+</li>
+</ul>
+<p>Tenured Generation: The pool containing objects that have existed for some time in the survivor space.</p>
+<h5 id="Non-heap_memory">Non-heap memory</h5><p>Non-heap memory includes a method area shared among all threads and memory required for the internal processing or optimization for the Java VM. It stores per-class structures such as a runtime constant pool, field and method data, and the code for methods and constructors. The method area is logically part of the heap but, depending on the implementation, a Java VM may not garbage collect or compact it. Like the heap memory, the method area may be of a fixed or variable size. The memory for the method area does not need to be contiguous.</p>
+<ul>
+<li><p>Permanent Generation: The pool containing all the reflective data of the virtual machine itself, such as class and method objects. With Java VMs that use class data sharing, this generation is divided into read-only and read-write areas.</p>
+</li>
+<li><p>Code Cache: The HotSpot Java VM also includes a code cache, containing memory that is used for compilation and storage of native code.</p>
+</li>
+</ul>
+</blockquote>
+<p>我的程序的堆内存占用:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cad5c33358.png" alt=""><br>这个程序每五分钟会去爬一次直播间的直播状态,<br>在这个点上堆内存占用升高,<br>GC之后又回落下来,<br>整体上在6.5M左右徘徊,<br>问题不大.<br>再来看非堆:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cae38326d2.png" alt=""><br>整体30M左右,基本上不变化.</p>
+<p>实际上JAVA程序在启动时可以指定内存占用的大小,<br><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-Xms128m -Xmx256m</span></span><br></pre></td></tr></table></figure></p>
+<p>上面这行代码就指定了堆的初始化内存为128MB,最大为256MB.<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"><span class="constant">XX</span><span class="symbol">:PermSize256m</span> <span class="constant">XX</span><span class="symbol">:MaxPermSize512m</span></span></span><br></pre></td></tr></table></figure></p>
+<p>上面这行代码用来指定非堆内存的永久代(<strong>PermGen</strong>)大小.<br>然而我试过将MaxPermSize设为20m,<br>非堆内存占用并没有什么变化.</p>
+<p>手头上还有一个舰娘的辅助程序,从github上下载的,<br>来看一下它的内存占用.<br>堆内存:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cb1413c8a5.png" alt=""><br>非堆:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cb18c012a9.png" alt=""><br>非堆几乎是一样的.</p>
+<p>这下可以安心了,自己的程序内存占用是正常的.<br>参考:<br><a href="https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html" target="_blank" rel="external">Configuring JVM Options</a><br><a href="http://stackoverflow.com/questions/1493913/how-to-set-the-maximum-memory-usage-for-jvm" target="_blank" rel="external">How to set the maximum memory usage for JVM</a></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/10/09/博客启用https/" itemprop="url">
                 博客启用https(支持hexo)
               </a>
@@ -406,7 +513,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
@@ -420,7 +527,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">標籤</span>
               </a>
           </div>

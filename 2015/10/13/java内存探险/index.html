@@ -32,7 +32,7 @@
 
 
 
-  <meta name="keywords" content="hexo,https," />
+  <meta name="keywords" content="JVM," />
 
 
 
@@ -41,23 +41,26 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="CloudFlare是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,网站就可以使用https访问了.ssllabs的测试结果:从图中可以看到,浏览器必须支持sni.
-然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script,然后在 layout/_layout.swig 中 include 进去.
-12">
+<meta name="description" content="之前写的b站直播订阅通知的程序内存占用始终不能满意,想到java是跑在jvm上的,是否jvm本身就需要占用那么多的内存呢,决定打开jconsole来看一看.java内存分为堆和非堆,来看定义:
+
+Heap memoryThe heap memory is the runtime data area from which the Java VM allocates memory for all cl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客启用https(支持hexo)">
-<meta property="og:url" content="https://winry.me/2015/10/09/博客启用https/index.html">
+<meta property="og:title" content="java内存探险(待续)">
+<meta property="og:url" content="https://winry.me/2015/10/13/java内存探险/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="CloudFlare是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,网站就可以使用https访问了.ssllabs的测试结果:从图中可以看到,浏览器必须支持sni.
-然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script,然后在 layout/_layout.swig 中 include 进去.
-12">
-<meta property="og:image" content="https://ooo.0o0.ooo/2015/10/09/56179c7581b1d.jpg">
-<meta property="og:updated_time" content="2015-10-09T10:53:14.645Z">
+<meta property="og:description" content="之前写的b站直播订阅通知的程序内存占用始终不能满意,想到java是跑在jvm上的,是否jvm本身就需要占用那么多的内存呢,决定打开jconsole来看一看.java内存分为堆和非堆,来看定义:
+
+Heap memoryThe heap memory is the runtime data area from which the Java VM allocates memory for all cl">
+<meta property="og:image" content="https://ooo.0o0.ooo/2015/10/13/561cad5c33358.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2015/10/13/561cae38326d2.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2015/10/13/561cb1413c8a5.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2015/10/13/561cb18c012a9.png">
+<meta property="og:updated_time" content="2015-10-13T13:15:35.048Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客启用https(支持hexo)">
-<meta name="twitter:description" content="CloudFlare是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,网站就可以使用https访问了.ssllabs的测试结果:从图中可以看到,浏览器必须支持sni.
-然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script,然后在 layout/_layout.swig 中 include 进去.
-12">
+<meta name="twitter:title" content="java内存探险(待续)">
+<meta name="twitter:description" content="之前写的b站直播订阅通知的程序内存占用始终不能满意,想到java是跑在jvm上的,是否jvm本身就需要占用那么多的内存呢,决定打开jconsole来看一看.java内存分为堆和非堆,来看定义:
+
+Heap memoryThe heap memory is the runtime data area from which the Java VM allocates memory for all cl">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -73,7 +76,7 @@
         window.location.protocol = "https";
 </script>
 
-  <title> 博客启用https(支持hexo) | Winry's </title>
+  <title> java内存探险(待续) | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -197,7 +200,7 @@
           
           
             
-              博客启用https(支持hexo)
+              java内存探险(待续)
             
           
         </h1>
@@ -206,8 +209,8 @@
       <div class="post-meta">
         <span class="post-time">
           發表於
-          <time itemprop="dateCreated" datetime="2015-10-09T00:00:00+08:00" content="2015-10-09">
-            2015-10-09
+          <time itemprop="dateCreated" datetime="2015-10-13T00:00:00+08:00" content="2015-10-13">
+            2015-10-13
           </time>
         </span>
 
@@ -216,8 +219,8 @@
             &nbsp; | &nbsp; 分類於
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/互联网/" itemprop="url" rel="index">
-                  <span itemprop="name">互联网</span>
+                <a href="/categories/Programming/" itemprop="url" rel="index">
+                  <span itemprop="name">Programming</span>
                 </a>
               </span>
 
@@ -232,8 +235,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/10/09/博客启用https/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/09/博客启用https/" itemprop="commentsCount"></span>
+            <a href="/2015/10/13/java内存探险/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/13/java内存探险/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -247,16 +250,30 @@
       
 
       
-        <span itemprop="articleBody"><ol>
-<li><a href="https://www.cloudflare.com/" target="_blank" rel="external">CloudFlare</a>是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,<br>网站就可以使用https访问了.<br><a href="https://www.ssllabs.com" target="_blank" rel="external">ssllabs</a>的测试结果:<br><img src="https://ooo.0o0.ooo/2015/10/09/56179c7581b1d.jpg" alt="" title="result"><br>从图中可以看到,浏览器必须支持sni.</li>
-<li><p>然后就是让用户的http请求跳转到https.<br>在 <code>layout/_scripts</code> 目录下加一个 script,然后在 <code>layout/_layout.swig</code> 中 include 进去.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="keyword">var</span> host = <span class="string">"yoursite.com"</span>;</span><br><span class="line">    <span class="keyword">if</span> ((host == <span class="built_in">window</span>.location.host) &amp;&amp; (<span class="built_in">window</span>.location.protocol != <span class="string">"https:"</span>))</span><br><span class="line">        <span class="built_in">window</span>.location.protocol = <span class="string">"https"</span>;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p>之前写的b站直播订阅通知的程序内存占用始终不能满意,<br>想到java是跑在jvm上的,<br>是否jvm本身就需要占用那么多的内存呢,<br>决定打开jconsole来看一看.<br>java内存分为堆和非堆,来看定义:</p>
+<blockquote>
+<h5 id="Heap_memory">Heap memory</h5><p>The heap memory is the runtime data area from which the Java VM allocates memory for all class instances and arrays. The heap may be of a fixed or variable size. The garbage collector is an automatic memory management system that reclaims heap memory for objects.</p>
+<ul>
+<li><p>Eden Space: The pool from which memory is initially allocated for most objects.</p>
 </li>
-<li><p>设置网站的url,让google等搜索引擎知道你正在使用ssl.<br>在<code>_config.yml</code>中增加:</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">url</span>: <span class="attribute">https</span>:<span class="comment">//www.yoursite.com   # with the https protocol</span></span><br><span class="line"><span class="attribute">enforce_ssl</span>: www.yoursite.com   # without any protocol</span><br></pre></td></tr></table></figure>
+<li><p>Survivor Space: The pool containing objects that have survived the garbage collection of the Eden space.</p>
 </li>
-</ol>
-<p>参考:<a href="https://sheharyar.me/blog/free-ssl-for-github-pages-with-custom-domains/" target="_blank" rel="external">Set Up SSL on Github Pages With Custom Domains for Free</a><br><a href="https://github.com/iissnan/hexo-theme-next/issues/123" target="_blank" rel="external">HTTPS下点击页面自动跳转HTTP</a></p>
+</ul>
+<p>Tenured Generation: The pool containing objects that have existed for some time in the survivor space.</p>
+<h5 id="Non-heap_memory">Non-heap memory</h5><p>Non-heap memory includes a method area shared among all threads and memory required for the internal processing or optimization for the Java VM. It stores per-class structures such as a runtime constant pool, field and method data, and the code for methods and constructors. The method area is logically part of the heap but, depending on the implementation, a Java VM may not garbage collect or compact it. Like the heap memory, the method area may be of a fixed or variable size. The memory for the method area does not need to be contiguous.</p>
+<ul>
+<li><p>Permanent Generation: The pool containing all the reflective data of the virtual machine itself, such as class and method objects. With Java VMs that use class data sharing, this generation is divided into read-only and read-write areas.</p>
+</li>
+<li><p>Code Cache: The HotSpot Java VM also includes a code cache, containing memory that is used for compilation and storage of native code.</p>
+</li>
+</ul>
+</blockquote>
+<p>我的程序的堆内存占用:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cad5c33358.png" alt=""><br>这个程序每五分钟会去爬一次直播间的直播状态,<br>在这个点上堆内存占用升高,<br>GC之后又回落下来,<br>整体上在6.5M左右徘徊,<br>问题不大.<br>再来看非堆:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cae38326d2.png" alt=""><br>整体30M左右,基本上不变化.</p>
+<p>实际上JAVA程序在启动时可以指定内存占用的大小,<br><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-Xms128m -Xmx256m</span></span><br></pre></td></tr></table></figure></p>
+<p>上面这行代码就指定了堆的初始化内存为128MB,最大为256MB.<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"><span class="constant">XX</span><span class="symbol">:PermSize256m</span> <span class="constant">XX</span><span class="symbol">:MaxPermSize512m</span></span></span><br></pre></td></tr></table></figure></p>
+<p>上面这行代码用来指定非堆内存的永久代(<strong>PermGen</strong>)大小.<br>然而我试过将MaxPermSize设为20m,<br>非堆内存占用并没有什么变化.</p>
+<p>手头上还有一个舰娘的辅助程序,从github上下载的,<br>来看一下它的内存占用.<br>堆内存:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cb1413c8a5.png" alt=""><br>非堆:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cb18c012a9.png" alt=""><br>非堆几乎是一样的.</p>
+<p>这下可以安心了,自己的程序内存占用是正常的.<br>参考:<br><a href="https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html" target="_blank" rel="external">Configuring JVM Options</a><br><a href="http://stackoverflow.com/questions/1493913/how-to-set-the-maximum-memory-usage-for-jvm" target="_blank" rel="external">How to set the maximum memory usage for JVM</a></p>
 </span>
       
     </div>
@@ -265,9 +282,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
-          
-            <a href="/tags/https/" rel="tag">#https</a>
+            <a href="/tags/JVM/" rel="tag">#JVM</a>
           
         </div>
       
@@ -276,13 +291,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/13/java内存探险/" rel="prev">java内存探险(待续)</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/15/java8-mixin/" rel="next">java8-mixin</a>
+              <a href="/2015/10/09/博客启用https/" rel="next">博客启用https(支持hexo)</a>
             
           </div>
         </div>
@@ -390,7 +403,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目錄</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Heap_memory"><span class="nav-number">1.</span> <span class="nav-text">Heap memory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Non-heap_memory"><span class="nav-number">2.</span> <span class="nav-text">Non-heap memory</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -444,9 +457,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = '2015/10/09/博客启用https/';
-      var disqus_title = '博客启用https(支持hexo)';
-      var disqus_url = 'https://winry.me/2015/10/09/博客启用https/';
+      var disqus_identifier = '2015/10/13/java内存探险/';
+      var disqus_title = 'java内存探险(待续)';
+      var disqus_url = 'https://winry.me/2015/10/13/java内存探险/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
