@@ -32,7 +32,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="Functional Programming,Java 8,visitor pattern," />
 
 
 
@@ -41,15 +41,19 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="acg&amp;programming sharing">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Winry's">
-<meta property="og:url" content="https://winry.me/index.html">
+<meta name="description" content="模式匹配是一种来源于函数式语言的特性,它有点像java中的switch,然而比switch更加强大,它除了能对值进行匹配之外还能对类型进行匹配.配合scala的模板类,它能写出非常简洁的类型、值匹配的代码.当你需要根据对象的类型或者值的不同来进行不同的逻辑处理时,就应该使用模式匹配.下面的内容将主要针对其中的类型匹配展开.
+scala中的模式匹配1234567891011121314object">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pattern-matching in java(翻译)">
+<meta property="og:url" content="https://winry.me/2015/11/04/pattern-matching in java/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="acg&amp;programming sharing">
+<meta property="og:description" content="模式匹配是一种来源于函数式语言的特性,它有点像java中的switch,然而比switch更加强大,它除了能对值进行匹配之外还能对类型进行匹配.配合scala的模板类,它能写出非常简洁的类型、值匹配的代码.当你需要根据对象的类型或者值的不同来进行不同的逻辑处理时,就应该使用模式匹配.下面的内容将主要针对其中的类型匹配展开.
+scala中的模式匹配1234567891011121314object">
+<meta property="og:updated_time" content="2015-11-04T09:33:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Winry's">
-<meta name="twitter:description" content="acg&amp;programming sharing">
+<meta name="twitter:title" content="pattern-matching in java(翻译)">
+<meta name="twitter:description" content="模式匹配是一种来源于函数式语言的特性,它有点像java中的switch,然而比switch更加强大,它除了能对值进行匹配之外还能对类型进行匹配.配合scala的模板类,它能写出非常简洁的类型、值匹配的代码.当你需要根据对象的类型或者值的不同来进行不同的逻辑处理时,就应该使用模式匹配.下面的内容将主要针对其中的类型匹配展开.
+scala中的模式匹配1234567891011121314object">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -65,7 +69,7 @@
         window.location.protocol = "https";
 </script>
 
-  <title> Winry's </title>
+  <title> pattern-matching in java(翻译) | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -92,9 +96,7 @@
 
 
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -178,9 +180,9 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content"> 
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
@@ -191,9 +193,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/11/04/pattern-matching in java/" itemprop="url">
-                pattern-matching in java(翻译)
-              </a>
+              pattern-matching in java(翻译)
             
           
         </h1>
@@ -243,8 +243,7 @@
       
 
       
-        
-          <span itemprop="articleBody"><p>模式匹配是一种来源于函数式语言的特性,它有点像java中的switch,<br>然而比switch更加强大,它除了能对值进行匹配之外还能对类型进行匹配.<br>配合scala的模板类,它能写出非常简洁的类型、值匹配的代码.<br>当你需要根据对象的类型或者值的不同来进行不同的逻辑处理时,就应该使用模式匹配.<br>下面的内容将主要针对其中的<strong>类型</strong>匹配展开.</p>
+        <span itemprop="articleBody"><p>模式匹配是一种来源于函数式语言的特性,它有点像java中的switch,<br>然而比switch更加强大,它除了能对值进行匹配之外还能对类型进行匹配.<br>配合scala的模板类,它能写出非常简洁的类型、值匹配的代码.<br>当你需要根据对象的类型或者值的不同来进行不同的逻辑处理时,就应该使用模式匹配.<br>下面的内容将主要针对其中的<strong>类型</strong>匹配展开.</p>
 <h3 id="scala中的模式匹配">scala中的模式匹配</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">patterns</span> &#123;</span></span><br><span class="line">  <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span><br><span class="line"></span>  <span class="class"><span class="keyword">class</span> <span class="title">Bar</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">bar</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">Foo</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Baz</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">baz</span>:</span> <span class="type">String</span>) <span class="keyword">extends</span> <span class="type">Foo</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">handle</span>(</span>f: <span class="type">Foo</span>) =</span><br><span class="line">    f <span class="keyword">match</span> &#123;</span><br><span class="line">      <span class="keyword">case</span> b: <span class="type">Bar</span> =&gt; b.bar</span><br><span class="line">      <span class="keyword">case</span> b: <span class="type">Baz</span> =&gt; b.baz</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  handle(<span class="keyword">new</span> <span class="type">Bar</span>(<span class="number">42</span>))                       <span class="comment">//&gt; res0: Any = 42</span></span><br><span class="line">  handle(<span class="keyword">new</span> <span class="type">Baz</span>(<span class="string">"Luhrmann"</span>))               <span class="comment">//&gt; res1: Any = Luhrmann</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面定义了一个抽象类Foo和两个子类Bar,Baz(object关键字说明这个类是单例的),<br>两个子类各有一个名称与类型都不同的成员属性,另外有一个handle方法来处理子类对象.<br>scala具有类型推导,所以这里没有声明方法的返回类型.</p>
 <h3 id="java中的做法">java中的做法</h3><h4 id="instanceof">instanceof</h4><p>简单的做法是使用instanceof<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BadFoo</span> &#123;</span></span><br><span class="line"></span><br><span class="line">  static <span class="class"><span class="keyword">class</span> <span class="title">Bar</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">BadFoo</span> &#123;</span></span><br><span class="line">    int bar;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Bar</span>(int bar) &#123;</span><br><span class="line">      <span class="keyword">this</span>.bar = bar;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  static <span class="class"><span class="keyword">class</span> <span class="title">Baz</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">BadFoo</span> &#123;</span></span><br><span class="line">    <span class="type">String</span> baz;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Baz</span>(<span class="type">String</span> baz) &#123;</span><br><span class="line">      <span class="keyword">this</span>.baz = baz;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  static void handle(<span class="type">BadFoo</span> f) &#123;</span><br><span class="line">    <span class="keyword">if</span> (f instanceof <span class="type">Bar</span>) &#123;</span><br><span class="line">      <span class="type">Bar</span> b = (<span class="type">Bar</span>) f;</span><br><span class="line">      <span class="type">System</span>.out.println(<span class="string">"I have "</span> + b.bar + <span class="string">" bars"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (f instanceof <span class="type">Baz</span>) &#123;</span><br><span class="line">      <span class="type">Baz</span> b = (<span class="type">Baz</span>) f;</span><br><span class="line">      <span class="type">System</span>.out.println(<span class="string">"I have the "</span> + b.baz + <span class="string">" baz"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static void main(<span class="type">String</span>[] args) &#123;</span><br><span class="line">    handle(<span class="keyword">new</span> <span class="type">Bar</span>(<span class="number">42</span>));</span><br><span class="line">    handle(<span class="keyword">new</span> <span class="type">Baz</span>(<span class="string">"Luhrmann"</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -267,333 +266,60 @@
 <p>16vs58,很难说用多余的42行来模拟相同的功能是否值得.<br>访问者模式的好处是,让你以一种类型安全的方式来处理子类.<br>在你添加新的子类时,编译器会告诉你哪些代码需要修改.<br>当你下一次遇到ClassCastException时你应该考虑使用它.</p>
 <p>原文:<br><a href="http://eng.wealthfront.com/2015/02/pattern-matching-in-java-with-visitor.html" target="_blank" rel="external">Pattern matching in Java with the Visitor pattern</a></p>
 </span>
-        
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/Functional-Programming/" rel="tag">#Functional Programming</a>
+          
+            <a href="/tags/Java-8/" rel="tag">#Java 8</a>
+          
+            <a href="/tags/visitor-pattern/" rel="tag">#visitor pattern</a>
+          
+        </div>
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/13/java内存探险/" rel="next">java内存探险(待续)</a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-      
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/13/java内存探险/" itemprop="url">
-                java内存探险(待续)
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於
-          <time itemprop="dateCreated" datetime="2015-10-13T00:00:00+08:00" content="2015-10-13">
-            2015-10-13
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分類於
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Programming/" itemprop="url" rel="index">
-                  <span itemprop="name">Programming</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/10/13/java内存探险/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/13/java内存探险/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>之前写的b站直播订阅通知的程序内存占用始终不能满意,<br>想到java是跑在jvm上的,<br>是否jvm本身就需要占用那么多的内存呢,<br>决定打开jconsole来看一看.<br>java内存分为堆和非堆,来看定义:</p>
-<blockquote>
-<h5 id="Heap_memory">Heap memory</h5><p>The heap memory is the runtime data area from which the Java VM allocates memory for all class instances and arrays. The heap may be of a fixed or variable size. The garbage collector is an automatic memory management system that reclaims heap memory for objects.</p>
-<ul>
-<li><p>Eden Space: The pool from which memory is initially allocated for most objects.</p>
-</li>
-<li><p>Survivor Space: The pool containing objects that have survived the garbage collection of the Eden space.</p>
-</li>
-<li><p>Tenured Generation: The pool containing objects that have existed for some time in the survivor space.</p>
-</li>
-</ul>
-<h5 id="Non-heap_memory">Non-heap memory</h5><p>Non-heap memory includes a method area shared among all threads and memory required for the internal processing or optimization for the Java VM. It stores per-class structures such as a runtime constant pool, field and method data, and the code for methods and constructors. The method area is logically part of the heap but, depending on the implementation, a Java VM may not garbage collect or compact it. Like the heap memory, the method area may be of a fixed or variable size. The memory for the method area does not need to be contiguous.</p>
-<ul>
-<li><p>Permanent Generation: The pool containing all the reflective data of the virtual machine itself, such as class and method objects. With Java VMs that use class data sharing, this generation is divided into read-only and read-write areas.</p>
-</li>
-<li><p>Code Cache: The HotSpot Java VM also includes a code cache, containing memory that is used for compilation and storage of native code.</p>
-</li>
-</ul>
-</blockquote>
-<p>我的程序的堆内存占用:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cad5c33358.png" alt=""><br>这个程序每五分钟会去爬一次直播间的直播状态,<br>在这个点上堆内存占用升高,<br>GC之后又回落下来,<br>整体上在6.5M左右徘徊,<br>问题不大.<br>再来看非堆:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cae38326d2.png" alt=""><br>整体30M左右,基本上不变化.</p>
-<hr>
-<p>实际上JAVA程序在启动时可以指定内存占用的大小,<br><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-Xms128m -Xmx256m</span></span><br></pre></td></tr></table></figure></p>
-<p>上面这行代码就指定了堆的初始化内存为128MB,最大为256MB.<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"><span class="constant">XX</span><span class="symbol">:PermSize256m</span> <span class="constant">XX</span><span class="symbol">:MaxPermSize512m</span></span></span><br></pre></td></tr></table></figure></p>
-<p>上面这行代码用来指定非堆内存的永久代(<strong>PermGen</strong>)大小.<br>然而我试过将MaxPermSize设为20m,<br>非堆内存占用并没有什么变化.</p>
-<hr>
-<p>手头上还有一个舰娘的辅助程序,从github上下载的,<br>来看一下它的内存占用.<br>堆内存:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cb1413c8a5.png" alt=""><br>非堆:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cb18c012a9.png" alt=""><br>非堆几乎是一样的.</p>
-<p>这下可以安心了,自己的程序内存占用是正常的.<br>参考:<br><a href="https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html" target="_blank" rel="external">Configuring JVM Options</a><br><a href="http://stackoverflow.com/questions/1493913/how-to-set-the-maximum-memory-usage-for-jvm" target="_blank" rel="external">How to set the maximum memory usage for JVM</a></p>
-</span>
-        
+    <div class="post-spread">
       
     </div>
+  </div>
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/09/博客启用https/" itemprop="url">
-                博客启用https(支持hexo)
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於
-          <time itemprop="dateCreated" datetime="2015-10-09T00:00:00+08:00" content="2015-10-09">
-            2015-10-09
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分類於
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/互联网/" itemprop="url" rel="index">
-                  <span itemprop="name">互联网</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/10/09/博客启用https/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/09/博客启用https/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><ol>
-<li><a href="https://www.cloudflare.com/" target="_blank" rel="external">CloudFlare</a>是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,<br>网站就可以使用https访问了.<br><a href="https://www.ssllabs.com" target="_blank" rel="external">ssllabs</a>的测试结果:<br><img src="https://ooo.0o0.ooo/2015/10/09/56179c7581b1d.jpg" alt="" title="result"><br>从图中可以看到,浏览器必须支持sni.</li>
-<li><p>然后就是让用户的http请求跳转到https.<br>在 <code>layout/_scripts</code> 目录下加一个 script,然后在 <code>layout/_layout.swig</code> 中 include 进去.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="keyword">var</span> host = <span class="string">"yoursite.com"</span>;</span><br><span class="line">    <span class="keyword">if</span> ((host == <span class="built_in">window</span>.location.host) &amp;&amp; (<span class="built_in">window</span>.location.protocol != <span class="string">"https:"</span>))</span><br><span class="line">        <span class="built_in">window</span>.location.protocol = <span class="string">"https"</span>;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置网站的url,让google等搜索引擎知道你正在使用ssl.<br>在<code>_config.yml</code>中增加:</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">url</span>: <span class="attribute">https</span>:<span class="comment">//www.yoursite.com   # with the https protocol</span></span><br><span class="line"><span class="attribute">enforce_ssl</span>: www.yoursite.com   # without any protocol</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>参考:<br><a href="https://sheharyar.me/blog/free-ssl-for-github-pages-with-custom-domains/" target="_blank" rel="external">Set Up SSL on Github Pages With Custom Domains for Free</a><br><a href="https://github.com/iissnan/hexo-theme-next/issues/123" target="_blank" rel="external">HTTPS下点击页面自动跳转HTTP</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/15/java8-mixin/" itemprop="url">
-                java8-mixin
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          發表於
-          <time itemprop="dateCreated" datetime="2015-09-15T00:00:00+08:00" content="2015-09-15">
-            2015-09-15
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分類於
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Programming/" itemprop="url" rel="index">
-                  <span itemprop="name">Programming</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/09/15/java8-mixin/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/15/java8-mixin/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>java8开始接口支持了默认方法,从此mixin也变为可能了.</p>
-<p>先来看看mixin是什么:</p>
-<blockquote>
-<p>In object-oriented programming languages, a mixin is a class that contains a <strong><em>combination</em></strong> of methods from other classes. How such a combination is done depends on the language. If a combination contains all methods of combined classes, it is equivalent to <strong><em>multiple inheritance</em></strong>. Mixins are sometimes described as being “included” rather than “inherited”.</p>
-<p>Mixins encourage code reuse and can be used to avoid the inheritance ambiguity that multiple inheritance can cause (the “<a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem" target="_blank" rel="external">diamond problem</a>“), or to work around lack of support for multiple inheritance in a language. A mixin can also be viewed as an <strong><em>interface with implemented methods</em></strong>.</p>
-</blockquote>
-<p>mixin混合了其他类的功能但是又不会引发多重继承的问题.</p>
-<p>下面是一个简单的迭代器.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>给上面的迭代器增加了foreach方法,接收一个consumer,<br>对每个元素执行相同的操作.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RichIterator</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">default</span> <span class="keyword">void</span> <span class="title">foreach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; consumer)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">while</span> (hasNext())</span><br><span class="line">			consumer.accept(next());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一个基于String的实现.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">AbsIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String s;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">StringIterator</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.s = s;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> i &lt; s.length();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Character <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Character character = s.charAt(i);</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">return</span> character;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最后是一个测试类.<br>测试用的迭代器即有StringIterator的实现,<br>又具有RichIterator的foreach方法.<br>在java8以前我们要怎么做这件事呢,<br>似乎是没法做,<br>由于接口没有默认方法,<br>我们必须在每个迭代器实现中重写foreach方法.<br>mixin增强了代码的重用能力.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIteratorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Iter iter = <span class="keyword">new</span> Iter(<span class="string">"test"</span>);</span><br><span class="line">		iter.foreach(System.out::println);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Iter</span> <span class="keyword">extends</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">RichIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Iter</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">super</span>(s);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参考:<a href="http://www.scala-lang.org/old/node/117" target="_blank" rel="external">scala-mixin</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
  </div>
 
         
 
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
         
       </div>
 
@@ -610,6 +336,15 @@
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
       
 
       <section class="site-overview">
@@ -657,6 +392,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#scala中的模式匹配"><span class="nav-number">1.</span> <span class="nav-text">scala中的模式匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java中的做法"><span class="nav-number">2.</span> <span class="nav-text">java中的做法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#instanceof"><span class="nav-number">2.1.</span> <span class="nav-text">instanceof</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Moving_logic_into_the_class"><span class="nav-number">2.2.</span> <span class="nav-text">Moving logic into the class</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问者模式"><span class="nav-number">3.</span> <span class="nav-text">访问者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic_Visitor"><span class="nav-number">3.1.</span> <span class="nav-text">Basic Visitor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Default_visitor"><span class="nav-number">3.2.</span> <span class="nav-text">Default visitor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Void_or_Unit_return_values"><span class="nav-number">3.3.</span> <span class="nav-text">Void or Unit return values</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解构模式匹配"><span class="nav-number">4.</span> <span class="nav-text">解构模式匹配</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
       
 
     </div>
@@ -706,9 +452,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = 'index.html';
-      var disqus_title = '';
-      var disqus_url = '';
+      var disqus_identifier = '2015/11/04/pattern-matching in java/';
+      var disqus_title = 'pattern-matching in java(翻译)';
+      var disqus_url = 'https://winry.me/2015/11/04/pattern-matching in java/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -719,6 +465,8 @@
       }
 
       run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
       
     </script>
   
@@ -745,6 +493,165 @@
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
 
   <script type="text/javascript">
     $(document).ready(function () {
