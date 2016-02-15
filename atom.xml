@@ -95,7 +95,7 @@
     <link href="https://winry.me/2015/10/13/java%E5%86%85%E5%AD%98%E6%8E%A2%E9%99%A9/"/>
     <id>https://winry.me/2015/10/13/java内存探险/</id>
     <published>2015-10-12T16:00:00.000Z</published>
-    <updated>2015-10-13T13:21:43.084Z</updated>
+    <updated>2016-02-15T14:44:56.565Z</updated>
     
     <content type="html">&lt;p&gt;之前写的b站直播订阅通知的程序内存占用始终不能满意,&lt;br&gt;想到java是跑在jvm上的,&lt;br&gt;是否jvm本身就需要占用那么多的内存呢,&lt;br&gt;决定打开jconsole来看一看.&lt;br&gt;java内存分为堆和非堆,来看定义:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -116,13 +116,13 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;我的程序的堆内存占用:&lt;br&gt;&lt;img src=&quot;https://ooo.0o0.ooo/2015/10/13/561cad5c33358.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;这个程序每五分钟会去爬一次直播间的直播状态,&lt;br&gt;在这个点上堆内存占用升高,&lt;br&gt;GC之后又回落下来,&lt;br&gt;整体上在6.5M左右徘徊,&lt;br&gt;问题不大.&lt;br&gt;再来看非堆:&lt;br&gt;&lt;img src=&quot;https://ooo.0o0.ooo/2015/10/13/561cae38326d2.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;整体30M左右,基本上不变化.&lt;/p&gt;
+&lt;p&gt;我的程序的堆内存占用:&lt;br&gt;&lt;img src=&quot;/img/561cad5c33358.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;这个程序每五分钟会去爬一次直播间的直播状态,&lt;br&gt;在这个点上堆内存占用升高,&lt;br&gt;GC之后又回落下来,&lt;br&gt;整体上在6.5M左右徘徊,&lt;br&gt;问题不大.&lt;br&gt;再来看非堆:&lt;br&gt;&lt;img src=&quot;/img/561cae38326d2.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;整体30M左右,基本上不变化.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;实际上JAVA程序在启动时可以指定内存占用的大小,&lt;br&gt;&lt;figure class=&quot;highlight diff&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;deletion&quot;&gt;-Xms128m -Xmx256m&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;上面这行代码就指定了堆的初始化内存为128MB,最大为256MB.&lt;br&gt;&lt;figure class=&quot;highlight haml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-&lt;span class=&quot;ruby&quot;&gt;&lt;span class=&quot;constant&quot;&gt;XX&lt;/span&gt;&lt;span class=&quot;symbol&quot;&gt;:PermSize256m&lt;/span&gt; &lt;span class=&quot;constant&quot;&gt;XX&lt;/span&gt;&lt;span class=&quot;symbol&quot;&gt;:MaxPermSize512m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;上面这行代码用来指定非堆内存的永久代(&lt;strong&gt;PermGen&lt;/strong&gt;)大小.&lt;br&gt;然而我试过将MaxPermSize设为20m,&lt;br&gt;非堆内存占用并没有什么变化.&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;手头上还有一个舰娘的辅助程序,从github上下载的,&lt;br&gt;来看一下它的内存占用.&lt;br&gt;堆内存:&lt;br&gt;&lt;img src=&quot;https://ooo.0o0.ooo/2015/10/13/561cb1413c8a5.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;非堆:&lt;br&gt;&lt;img src=&quot;https://ooo.0o0.ooo/2015/10/13/561cb18c012a9.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;非堆几乎是一样的.&lt;/p&gt;
+&lt;p&gt;手头上还有一个舰娘的辅助程序,从github上下载的,&lt;br&gt;来看一下它的内存占用.&lt;br&gt;堆内存:&lt;br&gt;&lt;img src=&quot;/img/561cb1413c8a5.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;非堆:&lt;br&gt;&lt;img src=&quot;/img/561cb18c012a9.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;非堆几乎是一样的.&lt;/p&gt;
 &lt;p&gt;这下可以安心了,自己的程序内存占用是正常的.&lt;br&gt;参考:&lt;br&gt;&lt;a href=&quot;https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Configuring JVM Options&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://stackoverflow.com/questions/1493913/how-to-set-the-maximum-memory-usage-for-jvm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;How to set the maximum memory usage for JVM&lt;/a&gt;&lt;/p&gt;
 </content>
     

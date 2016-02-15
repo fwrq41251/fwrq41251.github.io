@@ -456,13 +456,13 @@
 </li>
 </ul>
 </blockquote>
-<p>我的程序的堆内存占用:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cad5c33358.png" alt=""><br>这个程序每五分钟会去爬一次直播间的直播状态,<br>在这个点上堆内存占用升高,<br>GC之后又回落下来,<br>整体上在6.5M左右徘徊,<br>问题不大.<br>再来看非堆:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cae38326d2.png" alt=""><br>整体30M左右,基本上不变化.</p>
+<p>我的程序的堆内存占用:<br><img src="/img/561cad5c33358.png" alt=""><br>这个程序每五分钟会去爬一次直播间的直播状态,<br>在这个点上堆内存占用升高,<br>GC之后又回落下来,<br>整体上在6.5M左右徘徊,<br>问题不大.<br>再来看非堆:<br><img src="/img/561cae38326d2.png" alt=""><br>整体30M左右,基本上不变化.</p>
 <hr>
 <p>实际上JAVA程序在启动时可以指定内存占用的大小,<br><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-Xms128m -Xmx256m</span></span><br></pre></td></tr></table></figure></p>
 <p>上面这行代码就指定了堆的初始化内存为128MB,最大为256MB.<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"><span class="constant">XX</span><span class="symbol">:PermSize256m</span> <span class="constant">XX</span><span class="symbol">:MaxPermSize512m</span></span></span><br></pre></td></tr></table></figure></p>
 <p>上面这行代码用来指定非堆内存的永久代(<strong>PermGen</strong>)大小.<br>然而我试过将MaxPermSize设为20m,<br>非堆内存占用并没有什么变化.</p>
 <hr>
-<p>手头上还有一个舰娘的辅助程序,从github上下载的,<br>来看一下它的内存占用.<br>堆内存:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cb1413c8a5.png" alt=""><br>非堆:<br><img src="https://ooo.0o0.ooo/2015/10/13/561cb18c012a9.png" alt=""><br>非堆几乎是一样的.</p>
+<p>手头上还有一个舰娘的辅助程序,从github上下载的,<br>来看一下它的内存占用.<br>堆内存:<br><img src="/img/561cb1413c8a5.png" alt=""><br>非堆:<br><img src="/img/561cb18c012a9.png" alt=""><br>非堆几乎是一样的.</p>
 <p>这下可以安心了,自己的程序内存占用是正常的.<br>参考:<br><a href="https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html" target="_blank" rel="external">Configuring JVM Options</a><br><a href="http://stackoverflow.com/questions/1493913/how-to-set-the-maximum-memory-usage-for-jvm" target="_blank" rel="external">How to set the maximum memory usage for JVM</a></p>
 </span>
         
