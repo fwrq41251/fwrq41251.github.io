@@ -32,7 +32,7 @@
 
 
 
-  <meta name="keywords" content="Java 8,Mixin," />
+  <meta name="keywords" content="Java 8,currying,using," />
 
 
 
@@ -43,25 +43,19 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
-先来看看mixin是什么:
-
-In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
+<meta name="description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;  byte charset = font1.GdiCharSet;&amp;#125;
+without using:123456789101112&amp;#123;  Font">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java8 mixin">
-<meta property="og:url" content="https://winry.me/2015/09/15/java8 mixin/index.html">
+<meta property="og:title" content="Using and Currying in Java">
+<meta property="og:url" content="https://winry.me/2016/03/09/using-and-currying-in-java/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
-先来看看mixin是什么:
-
-In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
-<meta property="og:updated_time" content="2016-03-09T15:12:05.059Z">
+<meta property="og:description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;  byte charset = font1.GdiCharSet;&amp;#125;
+without using:123456789101112&amp;#123;  Font">
+<meta property="og:updated_time" content="2016-03-09T15:37:06.838Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java8 mixin">
-<meta name="twitter:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
-先来看看mixin是什么:
-
-In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
+<meta name="twitter:title" content="Using and Currying in Java">
+<meta name="twitter:description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;  byte charset = font1.GdiCharSet;&amp;#125;
+without using:123456789101112&amp;#123;  Font">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -77,7 +71,7 @@ In object-oriented programming languages, a mixin is a class that contains a com
         window.location.protocol = "https";
 </script>
 
-  <title> java8 mixin | Winry's </title>
+  <title> Using and Currying in Java | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -201,7 +195,7 @@ In object-oriented programming languages, a mixin is a class that contains a com
           
           
             
-              java8 mixin
+              Using and Currying in Java
             
           
         </h1>
@@ -210,8 +204,8 @@ In object-oriented programming languages, a mixin is a class that contains a com
       <div class="post-meta">
         <span class="post-time">
           發表於
-          <time itemprop="dateCreated" datetime="2015-09-15T00:00:00+08:00" content="2015-09-15">
-            2015-09-15
+          <time itemprop="dateCreated" datetime="2016-03-09T00:00:00+08:00" content="2016-03-09">
+            2016-03-09
           </time>
         </span>
 
@@ -236,8 +230,8 @@ In object-oriented programming languages, a mixin is a class that contains a com
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/09/15/java8 mixin/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/15/java8 mixin/" itemprop="commentsCount"></span>
+            <a href="/2016/03/09/using-and-currying-in-java/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/09/using-and-currying-in-java/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -251,22 +245,14 @@ In object-oriented programming languages, a mixin is a class that contains a com
       
 
       
-        <span itemprop="articleBody"><p>java8开始接口支持了默认方法,从此mixin也变为可能了.</p>
-<p>先来看看mixin是什么:</p>
-<blockquote>
-<p>In object-oriented programming languages, a mixin is a class that contains a <strong><em>combination</em></strong> of methods from other classes. How such a combination is done depends on the language. If a combination contains all methods of combined classes, it is equivalent to <strong><em>multiple inheritance</em></strong>. Mixins are sometimes described as being “included” rather than “inherited”.</p>
-<p>Mixins encourage code reuse and can be used to avoid the inheritance ambiguity that multiple inheritance can cause (the “<a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem" target="_blank" rel="external">diamond problem</a>“), or to work around lack of support for multiple inheritance in a language. A mixin can also be viewed as an <strong><em>interface with implemented methods</em></strong>.</p>
-</blockquote>
-<p>mixin混合了其他类的功能但是又不会引发多重继承的问题.</p>
-<p>下面是一个简单的迭代器.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>给上面的迭代器增加了foreach方法,接收一个consumer,<br>对每个元素执行相同的操作.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RichIterator</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">default</span> <span class="keyword">void</span> <span class="title">foreach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; consumer)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">while</span> (hasNext())</span><br><span class="line">			consumer.accept(next());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一个基于String的实现.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">AbsIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String s;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">StringIterator</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.s = s;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> i &lt; s.length();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Character <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Character character = s.charAt(i);</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">return</span> character;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最后是一个测试类.<br>测试用的迭代器即有StringIterator的实现,<br>又具有RichIterator的foreach方法.<br>在java8以前我们要怎么做这件事呢,<br>似乎是没法做,<br>由于接口没有默认方法,<br>我们必须在每个迭代器实现中重写foreach方法.<br>mixin增强了代码的重用能力.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIteratorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Iter iter = <span class="keyword">new</span> Iter(<span class="string">"test"</span>);</span><br><span class="line">		iter.foreach(System.out::println);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Iter</span> <span class="keyword">extends</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">RichIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Iter</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">super</span>(s);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参考:<a href="http://www.scala-lang.org/old/node/117" target="_blank" rel="external">scala-mixin</a></p>
+        <span itemprop="articleBody"><p>C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.<br>use using:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> (Font font1 = <span class="keyword">new</span> Font(<span class="string">"Arial"</span>, <span class="number">10.0f</span>))</span><br><span class="line">&#123;</span><br><span class="line">  byte charset = font1.GdiCharSet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>without using:<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;</span><br><span class="line">  Font font1 = new Font<span class="list">(<span class="string">"Arial"</span>, <span class="number">10.0</span>f)</span><span class="comment">;</span></span><br><span class="line">  try</span><br><span class="line">  <span class="collection">&#123;</span><br><span class="line">    byte charset = font1.GdiCharSet;</span><br><span class="line">  &#125;</span></span><br><span class="line">  finally</span><br><span class="line">  <span class="collection">&#123;</span><br><span class="line">    if <span class="list">(<span class="keyword">font1</span> != null)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">IDisposable</span>)</span>font1)</span>.Dispose<span class="list">()</span><span class="comment">;</span></span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>java 7以后java里也有了类似的特性。如果一个类实现了java.lang.AutoCloseable，那么你可以使用如下的语法。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">try</span>(ClassImplementingAutoCloseable obj = new <span class="function">ClassImplementingAutoCloseable</span>())</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来介绍如果一个类没有实现AutoCloseable，而又想实现类似using的功能应该怎么做。<br>MyFile是一个在使用之后需要被关闭的资源(需要调用close方法)。<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class MyFile &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">String</span> fileName;</span><br><span class="line"></span><br><span class="line">  MyFile(<span class="keyword">String</span> fileName) &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> close() &#123;</span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"closing file:"</span> + fileName);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> <span class="built_in">print</span>() &#123;</span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"fileName:"</span> + fileName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MyFileHelper是MyFile的一个工具类。<br>currier接收第一个参数myFile，返回一个<code>Consumer&lt;Consumer&lt;MyFile&gt;&gt;</code>。<br>意思是这个consumer接收另外一个consumer作为参数（另外这个consumer才会真正的消费myFile）。<br>在currier的第二个参数被应用之前，它是不知道myFile会如何被消费的。<br>当然你也可以把consumer换成function，资源消费之后再产生一个结果。<br>这里用到了<a href="https://en.wikipedia.org/wiki/Currying" target="_blank" rel="external">Currying</a>，Currying是在函数式语言中接收单参数的函数模拟多参数的函数的技术。<br>使用Currying让它在语法上它更接近using，把资源的初始化和资源的处理分开。<br>同时，consumer和myfile两个参数能够在不同的地方被确定，它们可以被互相隔离的测试。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyFileHelper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> Consumer&lt;Consumer&lt;MyFile&gt;&gt; using(MyFile file) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">Function</span>&lt;<span class="title">MyFile</span>, <span class="title">Consumer</span>&lt;<span class="title">Consumer</span>&lt;<span class="title">MyFile</span>&gt;&gt;&gt; <span class="title">currier</span> = <span class="title">myFile</span> -&gt; <span class="title">consumer</span> -&gt; </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        consumer.accept(myFile);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">          myFile.close();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">      Consumer&lt;Consumer&lt;MyFile&gt;&gt; curried = currier.apply(file);</span><br><span class="line">      <span class="keyword">return</span> curried;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后是测试代码。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  MyFileHelper.<span class="keyword">using</span>(<span class="keyword">new</span> MyFile(<span class="string">"my-file"</span>)).accept(</span><br><span class="line">    myFile -&gt; myFile.print());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fileName:<span class="keyword">my</span>-<span class="type">file</span></span><br><span class="line">closing <span class="type">file</span>:<span class="keyword">my</span>-<span class="type">file</span></span><br></pre></td></tr></table></figure></p>
+<p>完整的代码可以在这里看到：<br><a href="https://gist.github.com/fwrq41251/f6b82e201ff3b63d11ca" target="_blank" rel="external">gist</a></p>
 </span>
       
     </div>
@@ -277,7 +263,9 @@ In object-oriented programming languages, a mixin is a class that contains a com
           
             <a href="/tags/Java-8/" rel="tag">#Java 8</a>
           
-            <a href="/tags/Mixin/" rel="tag">#Mixin</a>
+            <a href="/tags/currying/" rel="tag">#currying</a>
+          
+            <a href="/tags/using/" rel="tag">#using</a>
           
         </div>
       
@@ -286,11 +274,11 @@ In object-oriented programming languages, a mixin is a class that contains a com
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/09/博客启用https/" rel="prev">博客启用https(支持hexo)</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/30/pattern matching in java(续)/" rel="next">pattern matching in java(续)</a>
             
           </div>
         </div>
@@ -459,9 +447,9 @@ In object-oriented programming languages, a mixin is a class that contains a com
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = '2015/09/15/java8 mixin/';
-      var disqus_title = 'java8 mixin';
-      var disqus_url = 'https://winry.me/2015/09/15/java8 mixin/';
+      var disqus_identifier = '2016/03/09/using-and-currying-in-java/';
+      var disqus_title = 'Using and Currying in Java';
+      var disqus_url = 'https://winry.me/2016/03/09/using-and-currying-in-java/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
