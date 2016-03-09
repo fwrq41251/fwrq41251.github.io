@@ -32,7 +32,7 @@
 
 
 
-  <meta name="keywords" content="Java 8,Mixin," />
+  <meta name="keywords" content="Java 8,pattern-matching," />
 
 
 
@@ -43,25 +43,19 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
-先来看看mixin是什么:
-
-In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
+<meta name="description" content="上一篇文章里翻译了java8以前模式匹配在java中的使用情况.这一篇文章会简单介绍cyclops库中模式匹配的相关内容.cyclops是基于java8的一个扩展库,包括了模式匹配,stream工具类,monad,元组等内容.
+直接上完整的代码.handleByType方法匹配类型,handleByValue方法匹配值.isType方法传入一个名为TypedFunction的函数式接口,这个接口里">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java8-mixin">
-<meta property="og:url" content="https://winry.me/2015/09/15/java8-mixin/index.html">
+<meta property="og:title" content="pattern matching in java(续)">
+<meta property="og:url" content="https://winry.me/2015/11/30/pattern matching in java(续)/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
-先来看看mixin是什么:
-
-In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
-<meta property="og:updated_time" content="2015-09-24T03:17:17.000Z">
+<meta property="og:description" content="上一篇文章里翻译了java8以前模式匹配在java中的使用情况.这一篇文章会简单介绍cyclops库中模式匹配的相关内容.cyclops是基于java8的一个扩展库,包括了模式匹配,stream工具类,monad,元组等内容.
+直接上完整的代码.handleByType方法匹配类型,handleByValue方法匹配值.isType方法传入一个名为TypedFunction的函数式接口,这个接口里">
+<meta property="og:updated_time" content="2016-03-09T15:11:47.507Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java8-mixin">
-<meta name="twitter:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
-先来看看mixin是什么:
-
-In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
+<meta name="twitter:title" content="pattern matching in java(续)">
+<meta name="twitter:description" content="上一篇文章里翻译了java8以前模式匹配在java中的使用情况.这一篇文章会简单介绍cyclops库中模式匹配的相关内容.cyclops是基于java8的一个扩展库,包括了模式匹配,stream工具类,monad,元组等内容.
+直接上完整的代码.handleByType方法匹配类型,handleByValue方法匹配值.isType方法传入一个名为TypedFunction的函数式接口,这个接口里">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -77,7 +71,7 @@ In object-oriented programming languages, a mixin is a class that contains a com
         window.location.protocol = "https";
 </script>
 
-  <title> java8-mixin | Winry's </title>
+  <title> pattern matching in java(续) | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -201,7 +195,7 @@ In object-oriented programming languages, a mixin is a class that contains a com
           
           
             
-              java8-mixin
+              pattern matching in java(续)
             
           
         </h1>
@@ -210,8 +204,8 @@ In object-oriented programming languages, a mixin is a class that contains a com
       <div class="post-meta">
         <span class="post-time">
           發表於
-          <time itemprop="dateCreated" datetime="2015-09-15T00:00:00+08:00" content="2015-09-15">
-            2015-09-15
+          <time itemprop="dateCreated" datetime="2015-11-30T00:00:00+08:00" content="2015-11-30">
+            2015-11-30
           </time>
         </span>
 
@@ -236,8 +230,8 @@ In object-oriented programming languages, a mixin is a class that contains a com
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/09/15/java8-mixin/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/15/java8-mixin/" itemprop="commentsCount"></span>
+            <a href="/2015/11/30/pattern matching in java(续)/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/30/pattern matching in java(续)/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -251,22 +245,9 @@ In object-oriented programming languages, a mixin is a class that contains a com
       
 
       
-        <span itemprop="articleBody"><p>java8开始接口支持了默认方法,从此mixin也变为可能了.</p>
-<p>先来看看mixin是什么:</p>
-<blockquote>
-<p>In object-oriented programming languages, a mixin is a class that contains a <strong><em>combination</em></strong> of methods from other classes. How such a combination is done depends on the language. If a combination contains all methods of combined classes, it is equivalent to <strong><em>multiple inheritance</em></strong>. Mixins are sometimes described as being “included” rather than “inherited”.</p>
-<p>Mixins encourage code reuse and can be used to avoid the inheritance ambiguity that multiple inheritance can cause (the “<a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem" target="_blank" rel="external">diamond problem</a>“), or to work around lack of support for multiple inheritance in a language. A mixin can also be viewed as an <strong><em>interface with implemented methods</em></strong>.</p>
-</blockquote>
-<p>mixin混合了其他类的功能但是又不会引发多重继承的问题.</p>
-<p>下面是一个简单的迭代器.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>给上面的迭代器增加了foreach方法,接收一个consumer,<br>对每个元素执行相同的操作.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RichIterator</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">default</span> <span class="keyword">void</span> <span class="title">foreach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; consumer)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">while</span> (hasNext())</span><br><span class="line">			consumer.accept(next());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一个基于String的实现.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">AbsIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String s;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">StringIterator</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.s = s;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> i &lt; s.length();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Character <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Character character = s.charAt(i);</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">return</span> character;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最后是一个测试类.<br>测试用的迭代器即有StringIterator的实现,<br>又具有RichIterator的foreach方法.<br>在java8以前我们要怎么做这件事呢,<br>似乎是没法做,<br>由于接口没有默认方法,<br>我们必须在每个迭代器实现中重写foreach方法.<br>mixin增强了代码的重用能力.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIteratorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Iter iter = <span class="keyword">new</span> Iter(<span class="string">"test"</span>);</span><br><span class="line">		iter.foreach(System.out::println);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Iter</span> <span class="keyword">extends</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">RichIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Iter</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">super</span>(s);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参考:<a href="http://www.scala-lang.org/old/node/117" target="_blank" rel="external">scala-mixin</a></p>
+        <span itemprop="articleBody"><p>上一篇文章里翻译了java8以前模式匹配在java中的使用情况.<br>这一篇文章会简单介绍cyclops库中模式匹配的相关内容.<br><a href="https://github.com/aol/cyclops" target="_blank" rel="external">cyclops</a>是基于java8的一个扩展库,包括了模式匹配,stream工具类,monad,元组等内容.</p>
+<p>直接上完整的代码.handleByType方法匹配类型,handleByValue方法匹配值.<br>isType方法传入一个名为TypedFunction的函数式接口,这个接口里有一个默认方法可以获取lanbda表达式中的泛型具体类型.<br>需要注意的是当需要值匹配时必须重写类的equals方法,因为Object中的equals方法认为两个不同的对象是不相等的.<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">package org.gradle.pattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.aol.cyclops.matcher.builders.Matching;</span><br><span class="line"></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">Patterns</span> &#123;</span></span><br><span class="line"></span><br><span class="line">	abstract <span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Bar</span> <span class="keyword">extends</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"></span><br><span class="line">		public Bar(Integer bar) &#123;</span><br><span class="line">			<span class="keyword">super</span>();</span><br><span class="line">			<span class="keyword">this</span>.bar = bar;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		private Integer bar;</span><br><span class="line"></span><br><span class="line">		public Integer getBar() &#123;</span><br><span class="line">			<span class="keyword">return</span> bar;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public <span class="literal">void</span> setBar(Integer bar) &#123;</span><br><span class="line">			<span class="keyword">this</span>.bar = bar;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Baz</span> <span class="keyword">extends</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"></span><br><span class="line">		public Baz(String baz) &#123;</span><br><span class="line">			<span class="keyword">super</span>();</span><br><span class="line">			<span class="keyword">this</span>.baz = baz;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		private String baz;</span><br><span class="line"></span><br><span class="line">		public String getBaz() &#123;</span><br><span class="line">			<span class="keyword">return</span> baz;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public <span class="literal">void</span> setBaz(String baz) &#123;</span><br><span class="line">			<span class="keyword">this</span>.baz = baz;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="property">@Override</span></span><br><span class="line">		public int hashCode() &#123;</span><br><span class="line">			final int prime = <span class="number">31</span>;</span><br><span class="line">			int result = <span class="number">1</span>;</span><br><span class="line">			result = prime * result + getOuterType().hashCode();</span><br><span class="line">			result = prime * result + ((baz == <span class="literal">null</span>) ? <span class="number">0</span> : baz.hashCode());</span><br><span class="line">			<span class="keyword">return</span> result;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="property">@Override</span></span><br><span class="line">		public boolean equals(Object obj) &#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span> == obj)</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">if</span> (obj == <span class="literal">null</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">if</span> (getClass() != obj.getClass())</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			Baz other = (Baz) obj;</span><br><span class="line">			<span class="keyword">if</span> (!getOuterType().equals(other.getOuterType()))</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">if</span> (baz == <span class="literal">null</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (other.baz != <span class="literal">null</span>)</span><br><span class="line">					<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (!baz.equals(other.baz))</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		private Patterns getOuterType() &#123;</span><br><span class="line">			<span class="keyword">return</span> Patterns.<span class="keyword">this</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Object handleByType(Foo foo) &#123;</span><br><span class="line">		<span class="keyword">return</span> Matching</span><br><span class="line">				.<span class="keyword">when</span><span class="function"><span class="params">()</span>.<span class="title">isType</span><span class="params">((Bar bar) -&gt; bar.getBar())</span></span><br><span class="line">				.<span class="title">when</span><span class="params">()</span>.<span class="title">isType</span><span class="params">((Baz baz) -&gt; baz.getBaz())</span></span><br><span class="line">				.<span class="title">match</span><span class="params">(foo)</span></span><br><span class="line">				.<span class="title">get</span><span class="params">()</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="title">Object</span> <span class="title">handleByValue</span><span class="params">(Foo foo)</span> &#123;</span><br><span class="line">		<span class="title">return</span> <span class="title">Matching</span></span><br><span class="line">				.<span class="title">when</span><span class="params">()</span>.<span class="title">isValue</span><span class="params">(<span class="keyword">new</span> Baz(<span class="string">"Luhrmann"</span>))</span>.<span class="title">thenApply</span><span class="params">(baz -&gt; baz.getBaz())</span></span><br><span class="line">				.<span class="title">match</span><span class="params">(foo)</span></span><br><span class="line">				.<span class="title">orElse</span><span class="params">(<span class="string">"match nothing"</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@<span class="title">Test</span></span><br><span class="line">	<span class="title">public</span> <span class="title">void</span> <span class="title">test</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="title">System</span>.<span class="title">out</span>.<span class="title">println</span><span class="params">(handleByType(<span class="keyword">new</span> Bar(<span class="number">42</span>)))</span>;          // 42</span><br><span class="line">		<span class="title">System</span>.<span class="title">out</span>.<span class="title">println</span><span class="params">(handleByType(<span class="keyword">new</span> Baz(<span class="string">"letty"</span>)))</span>;     // <span class="title">letty</span></span><br><span class="line">		<span class="title">System</span>.<span class="title">out</span>.<span class="title">println</span><span class="params">(handleByValue(<span class="keyword">new</span> Baz(<span class="string">"Luhrmann"</span>)))</span>; // <span class="title">Luhrmann</span></span><br><span class="line">		<span class="title">System</span>.<span class="title">out</span>.<span class="title">println</span><span class="params">(handleByValue(<span class="keyword">new</span> Baz(<span class="string">""</span>)))</span>;         // <span class="title">match</span> <span class="title">nothing</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>虽然和scala中的guard和case class相比,java中的模式匹配还是不够灵活,<br>然而这毕竟缺少了语言层面的支持.尽管如此,使用cyclops还是比起用访问者模式<br>在可读性和实现的难易度上都大大进步了.<br>预告:下一篇博客可能会继续介绍cyclops,或者是和动静态语言相关的内容.</p>
 </span>
       
     </div>
@@ -277,7 +258,7 @@ In object-oriented programming languages, a mixin is a class that contains a com
           
             <a href="/tags/Java-8/" rel="tag">#Java 8</a>
           
-            <a href="/tags/Mixin/" rel="tag">#Mixin</a>
+            <a href="/tags/pattern-matching/" rel="tag">#pattern-matching</a>
           
         </div>
       
@@ -286,11 +267,13 @@ In object-oriented programming languages, a mixin is a class that contains a com
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/09/博客启用https/" rel="prev">博客启用https(支持hexo)</a>
+              <a href="/2016/03/09/using and currying in java/" rel="prev">using and currying in java</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/04/pattern matching in java/" rel="next">pattern matching in java(翻译)</a>
             
           </div>
         </div>
@@ -356,7 +339,7 @@ In object-oriented programming languages, a mixin is a class that contains a com
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
@@ -370,7 +353,7 @@ In object-oriented programming languages, a mixin is a class that contains a com
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">標籤</span>
               </a>
           </div>
@@ -459,9 +442,9 @@ In object-oriented programming languages, a mixin is a class that contains a com
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = '2015/09/15/java8-mixin/';
-      var disqus_title = 'java8-mixin';
-      var disqus_url = 'https://winry.me/2015/09/15/java8-mixin/';
+      var disqus_identifier = '2015/11/30/pattern matching in java(续)/';
+      var disqus_title = 'pattern matching in java(续)';
+      var disqus_url = 'https://winry.me/2015/11/30/pattern matching in java(续)/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

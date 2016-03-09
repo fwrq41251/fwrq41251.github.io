@@ -32,7 +32,7 @@
 
 
 
-  <meta name="keywords" content="hexo,https," />
+  <meta name="keywords" content="Java 8,currying,using," />
 
 
 
@@ -43,23 +43,19 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="CloudFlare是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,网站就可以使用https访问了.ssllabs的测试结果:从图中可以看到,浏览器必须支持sni.
-然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script,然后在 layout/_layout.swig 中 include 进去.
-12">
+<meta name="description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;    byte charset = font1.GdiCharSet;&amp;#125;
+without using:123456789101112&amp;#123;  Fo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客启用https(支持hexo)">
-<meta property="og:url" content="https://winry.me/2015/10/09/博客启用https/index.html">
+<meta property="og:title" content="using and currying in java">
+<meta property="og:url" content="https://winry.me/2016/03/09/using and currying in java/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="CloudFlare是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,网站就可以使用https访问了.ssllabs的测试结果:从图中可以看到,浏览器必须支持sni.
-然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script,然后在 layout/_layout.swig 中 include 进去.
-12">
-<meta property="og:image" content="https://winry.me/img/56179c7581b1d.jpg">
-<meta property="og:updated_time" content="2016-02-15T14:41:04.930Z">
+<meta property="og:description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;    byte charset = font1.GdiCharSet;&amp;#125;
+without using:123456789101112&amp;#123;  Fo">
+<meta property="og:updated_time" content="2016-03-09T15:09:17.990Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客启用https(支持hexo)">
-<meta name="twitter:description" content="CloudFlare是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,网站就可以使用https访问了.ssllabs的测试结果:从图中可以看到,浏览器必须支持sni.
-然后就是让用户的http请求跳转到https.在 layout/_scripts 目录下加一个 script,然后在 layout/_layout.swig 中 include 进去.
-12">
+<meta name="twitter:title" content="using and currying in java">
+<meta name="twitter:description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;    byte charset = font1.GdiCharSet;&amp;#125;
+without using:123456789101112&amp;#123;  Fo">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -75,7 +71,7 @@
         window.location.protocol = "https";
 </script>
 
-  <title> 博客启用https(支持hexo) | Winry's </title>
+  <title> using and currying in java | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -199,7 +195,7 @@
           
           
             
-              博客启用https(支持hexo)
+              using and currying in java
             
           
         </h1>
@@ -208,8 +204,8 @@
       <div class="post-meta">
         <span class="post-time">
           發表於
-          <time itemprop="dateCreated" datetime="2015-10-09T00:00:00+08:00" content="2015-10-09">
-            2015-10-09
+          <time itemprop="dateCreated" datetime="2016-03-09T00:00:00+08:00" content="2016-03-09">
+            2016-03-09
           </time>
         </span>
 
@@ -218,8 +214,8 @@
             &nbsp; | &nbsp; 分類於
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/互联网/" itemprop="url" rel="index">
-                  <span itemprop="name">互联网</span>
+                <a href="/categories/Programming/" itemprop="url" rel="index">
+                  <span itemprop="name">Programming</span>
                 </a>
               </span>
 
@@ -234,8 +230,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/10/09/博客启用https/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/09/博客启用https/" itemprop="commentsCount"></span>
+            <a href="/2016/03/09/using and currying in java/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/09/using and currying in java/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -249,16 +245,14 @@
       
 
       
-        <span itemprop="articleBody"><ol>
-<li><a href="https://www.cloudflare.com/" target="_blank" rel="external">CloudFlare</a>是目前唯一一家提供免费ssl的cdn,注册完设置好nameserver之后大约等一个多小时,<br>网站就可以使用https访问了.<br><a href="https://www.ssllabs.com" target="_blank" rel="external">ssllabs</a>的测试结果:<br><img src="/img/56179c7581b1d.jpg" alt="" title="result"><br>从图中可以看到,浏览器必须支持sni.</li>
-<li><p>然后就是让用户的http请求跳转到https.<br>在 <code>layout/_scripts</code> 目录下加一个 script,然后在 <code>layout/_layout.swig</code> 中 include 进去.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="keyword">var</span> host = <span class="string">"yoursite.com"</span>;</span><br><span class="line">    <span class="keyword">if</span> ((host == <span class="built_in">window</span>.location.host) &amp;&amp; (<span class="built_in">window</span>.location.protocol != <span class="string">"https:"</span>))</span><br><span class="line">        <span class="built_in">window</span>.location.protocol = <span class="string">"https"</span>;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置网站的url,让google等搜索引擎知道你正在使用ssl.<br>在<code>_config.yml</code>中增加:</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">url</span>: <span class="attribute">https</span>:<span class="comment">//www.yoursite.com   # with the https protocol</span></span><br><span class="line"><span class="attribute">enforce_ssl</span>: www.yoursite.com   # without any protocol</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>参考:<br><a href="https://sheharyar.me/blog/free-ssl-for-github-pages-with-custom-domains/" target="_blank" rel="external">Set Up SSL on Github Pages With Custom Domains for Free</a><br><a href="https://github.com/iissnan/hexo-theme-next/issues/123" target="_blank" rel="external">HTTPS下点击页面自动跳转HTTP</a></p>
+        <span itemprop="articleBody"><p>C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.<br>use using:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> (Font font1 = <span class="keyword">new</span> Font(<span class="string">"Arial"</span>, <span class="number">10.0f</span>))</span><br><span class="line">&#123;</span><br><span class="line">    byte charset = font1.GdiCharSet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>without using:<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;</span><br><span class="line">  Font font1 = new Font<span class="list">(<span class="string">"Arial"</span>, <span class="number">10.0</span>f)</span><span class="comment">;</span></span><br><span class="line">  try</span><br><span class="line">  <span class="collection">&#123;</span><br><span class="line">    byte charset = font1.GdiCharSet;</span><br><span class="line">  &#125;</span></span><br><span class="line">  finally</span><br><span class="line">  <span class="collection">&#123;</span><br><span class="line">    if <span class="list">(<span class="keyword">font1</span> != null)</span></span><br><span class="line">      <span class="list">(<span class="list">(<span class="keyword">IDisposable</span>)</span>font1)</span>.Dispose<span class="list">()</span><span class="comment">;</span></span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>java 7以后java里也有了类似的特性。如果一个类实现了java.lang.AutoCloseable，那么你可以使用如下的语法。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">try</span>(ClassImplementingAutoCloseable obj = new <span class="function">ClassImplementingAutoCloseable</span>())</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来介绍如果一个类没有实现AutoCloseable，而又想实现类似using的功能应该怎么做。<br>MyFile是一个在使用之后需要被关闭的资源(需要调用close方法)。<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class MyFile &#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">String</span> fileName;</span><br><span class="line"></span><br><span class="line">		MyFile(<span class="keyword">String</span> fileName) &#123;</span><br><span class="line">			<span class="keyword">super</span>();</span><br><span class="line">			<span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">void</span> close() &#123;</span><br><span class="line">			System.out.<span class="built_in">println</span>(<span class="string">"closing file:"</span> + fileName);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">void</span> <span class="built_in">print</span>() &#123;</span><br><span class="line">			System.out.<span class="built_in">println</span>(<span class="string">"fileName:"</span> + fileName);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MyFileHelper是MyFile的一个工具类。<br>currier接收第一个参数myFile，返回一个Consumer<consumer<myfile>&gt;。<br>意思是这个consumer接收另外一个consumer作为参数（另外这个consumer才会真正的消费myFile）。<br>在currier的第二个参数被应用之前，它是不知道myFile会如何被消费的。<br>当然你也可以把consumer换成function，资源消费之后再产生一个结果。<br>这里用到了<a href="https://en.wikipedia.org/wiki/Currying" target="_blank" rel="external">Currying</a>，Currying是在函数式语言中接收单参数的函数模拟多参数的函数的技术。<br>使用Currying让它在语法上它更接近using，把资源的初始化和资源的处理分开。<br>同时，consumer和myfile两个参数能够在不同的地方被确定，它们可以被互相隔离的测试。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyFileHelper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">static</span> Consumer&lt;Consumer&lt;MyFile&gt;&gt; using(MyFile file) &#123;</span><br><span class="line">			<span class="function"><span class="keyword">Function</span>&lt;<span class="title">MyFile</span>, <span class="title">Consumer</span>&lt;<span class="title">Consumer</span>&lt;<span class="title">MyFile</span>&gt;&gt;&gt; <span class="title">currier</span> = <span class="title">myFile</span> -&gt; <span class="title">consumer</span> -&gt; </span>&#123;</span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					consumer.accept(myFile);</span><br><span class="line">				&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">					myFile.close();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;;</span><br><span class="line">			Consumer&lt;Consumer&lt;MyFile&gt;&gt; curried = currier.apply(file);</span><br><span class="line">			<span class="keyword">return</span> curried;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></consumer<myfile></p>
+<p>最后是测试代码。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		MyFileHelper.<span class="keyword">using</span>(<span class="keyword">new</span> MyFile(<span class="string">"my-file"</span>)).accept(myFile -&gt; myFile.print());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fileName:<span class="keyword">my</span>-<span class="type">file</span></span><br><span class="line">closing <span class="type">file</span>:<span class="keyword">my</span>-<span class="type">file</span></span><br></pre></td></tr></table></figure></p>
+<p>完整的代码可以在这里看到：<br><a href="https://gist.github.com/fwrq41251/f6b82e201ff3b63d11ca" target="_blank" rel="external">gist</a></p>
 </span>
       
     </div>
@@ -267,9 +261,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/Java-8/" rel="tag">#Java 8</a>
           
-            <a href="/tags/https/" rel="tag">#https</a>
+            <a href="/tags/currying/" rel="tag">#currying</a>
+          
+            <a href="/tags/using/" rel="tag">#using</a>
           
         </div>
       
@@ -278,13 +274,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/13/java内存探险/" rel="prev">java内存探险(待续)</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/15/java8 mixin/" rel="next">java8 mixin</a>
+              <a href="/2015/11/30/pattern matching in java(续)/" rel="next">pattern matching in java(续)</a>
             
           </div>
         </div>
@@ -453,9 +447,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = '2015/10/09/博客启用https/';
-      var disqus_title = '博客启用https(支持hexo)';
-      var disqus_url = 'https://winry.me/2015/10/09/博客启用https/';
+      var disqus_identifier = '2016/03/09/using and currying in java/';
+      var disqus_title = 'using and currying in java';
+      var disqus_url = 'https://winry.me/2016/03/09/using and currying in java/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
