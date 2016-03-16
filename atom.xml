@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://winry.me/"/>
-  <updated>2016-03-09T15:37:06.838Z</updated>
+  <updated>2016-03-16T13:44:11.452Z</updated>
   <id>https://winry.me/</id>
   
   <author>
@@ -14,6 +14,78 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>win常用软件</title>
+    <link href="https://winry.me/2016/03/16/win%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"/>
+    <id>https://winry.me/2016/03/16/win常用软件/</id>
+    <published>2016-03-15T16:00:00.000Z</published>
+    <updated>2016-03-16T13:44:11.452Z</updated>
+    
+    <content type="html">&lt;p&gt;自己常用的windows软件列表。&lt;/p&gt;
+&lt;h4 id=&quot;editor&quot;&gt;editor&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Notepad2-mod&lt;/li&gt;
+&lt;li&gt;Atom&lt;/li&gt;
+&lt;li&gt;Haroopad&lt;/li&gt;
+&lt;li&gt;Sublime&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;sync&quot;&gt;sync&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Dropbox&lt;/li&gt;
+&lt;li&gt;坚果云&lt;/li&gt;
+&lt;li&gt;Seafile&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;im&quot;&gt;im&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;QQLite&lt;/li&gt;
+&lt;li&gt;Telegram&lt;/li&gt;
+&lt;li&gt;Slack&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;reader&quot;&gt;reader&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;SumatraPDF&lt;/li&gt;
+&lt;li&gt;Picassa&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;recoder&quot;&gt;recoder&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Bandicm&lt;/li&gt;
+&lt;li&gt;LICEcap&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;dowanload&quot;&gt;dowanload&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;EagleGet&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;shell&quot;&gt;shell&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Babun&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;tunnel&quot;&gt;tunnel&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Ngrok&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;wireshark&quot;&gt;wireshark&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Fiddler&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;proxy&quot;&gt;proxy&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;ShadowSocks&lt;/li&gt;
+&lt;li&gt;Lantern&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;ssh&quot;&gt;ssh&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;PuTTY&lt;/li&gt;
+&lt;li&gt;WinSCP&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;自己常用的windows软件列表。&lt;/p&gt;
+&lt;h4 id=&quot;editor&quot;&gt;editor&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Notepad2-mod&lt;/li&gt;
+&lt;li&gt;Atom&lt;/li&gt;
+&lt;li&gt;Haroopad&lt;/li&gt;
+&lt;li&gt;Sublime&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id
+    
+    </summary>
+    
+    
+      <category term="windows" scheme="https://winry.me/tags/windows/"/>
+    
+  </entry>
   
   <entry>
     <title>Using and Currying in Java</title>
