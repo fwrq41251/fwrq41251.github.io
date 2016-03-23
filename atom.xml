@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://winry.me/"/>
-  <updated>2016-03-16T13:44:11.452Z</updated>
+  <updated>2016-03-23T17:00:04.318Z</updated>
   <id>https://winry.me/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>b站登陆以及发弹幕</title>
+    <link href="https://winry.me/2016/03/23/b%E7%AB%99%E7%99%BB%E9%99%86%E4%BB%A5%E5%8F%8A%E5%8F%91%E5%BC%B9%E5%B9%95/"/>
+    <id>https://winry.me/2016/03/23/b站登陆以及发弹幕/</id>
+    <published>2016-03-22T16:00:00.000Z</published>
+    <updated>2016-03-23T17:00:04.318Z</updated>
+    
+    <content type="html">&lt;p&gt;本文只说明不使用验证码的登录，使用验证码的也是大同小异，打开B站F12然后登录，看一下HTTP报文就知道了。&lt;/p&gt;
+&lt;h2 id=&quot;登录&quot;&gt;登录&lt;/h2&gt;&lt;p&gt;登录密码需要加密（不过经测试，明文也是能登录的，如果用明文登录请跳至第三步），用的是RSA加密算法。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先要获取公钥：&lt;/p&gt;
+&lt;figure class=&quot;highlight crystal&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;constant&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;symbol&quot;&gt;:https&lt;/span&gt;&lt;span class=&quot;symbol&quot;&gt;://passport&lt;/span&gt;.bilibili.com/login?act=getkey&amp;amp;_= + 当前时间&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;返回的json类似这个样子：&lt;/p&gt;
+&lt;figure class=&quot;highlight json&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&quot;&lt;span class=&quot;attribute&quot;&gt;hash&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;&lt;span class=&quot;string&quot;&gt;&quot;4d656f543748e605&quot;&lt;/span&gt;&lt;/span&gt;,&quot;&lt;span class=&quot;attribute&quot;&gt;key&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;&lt;span class=&quot;string&quot;&gt;&quot;-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCdScM09sZJqFPX7bvmB2y6i08J\nbHsa0v4THafPbJN9NoaZ9Djz1LmeLkVlmWx1DwgHVW+K7LVWT5FV3johacVRuV98\n37+RNntEK6SE82MPcl7fA++dmW2cLlAjsIIkrX+aIvvSGCuUfcWpWFy3YVDqhuHr\nNDjdNcaefJIQHMW+sQIDAQAB\n-----END PUBLIC KEY-----\n&quot;&lt;/span&gt;&lt;/span&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;把hash值加到你的密码前面，然后用公钥加密。注意公钥是Base64编码过的，去掉头尾和换行之后要先解码。同样的，公钥加密之后的密文也要经过Base64编码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;登录请求：&lt;/p&gt;
+&lt;figure class=&quot;highlight crystal&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;constant&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;symbol&quot;&gt;:https&lt;/span&gt;&lt;span class=&quot;symbol&quot;&gt;://passport&lt;/span&gt;.bilibili.com/ajax/miniLogin/login&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;随之还要提交一个表单，有四个字段。&lt;br&gt;“userid=用户名&amp;amp;pwd=密码&amp;amp;captcha=验证码&amp;amp;keep=是否保持登录状态”&lt;br&gt;验证码填空就行，keep填1为是，0为否。&lt;br&gt;登录成功后，返回的json:&lt;/p&gt;
+&lt;figure class=&quot;highlight json&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&quot;&lt;span class=&quot;attribute&quot;&gt;status&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;&lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;,&quot;&lt;span class=&quot;attribute&quot;&gt;ts&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;&lt;span class=&quot;number&quot;&gt;1458750856&lt;/span&gt;&lt;/span&gt;,&quot;&lt;span class=&quot;attribute&quot;&gt;data&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;&amp;#123;&quot;&lt;span class=&quot;attribute&quot;&gt;code&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;,&quot;&lt;span class=&quot;attribute&quot;&gt;crossDomain&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;&lt;span class=&quot;string&quot;&gt;&quot;https://passport.bilibili.com/crossDomain?DedeUserID=241087&amp;amp;DedeUserID__ckMd5=7e772bf49d639da6&amp;amp;Expires=1800&amp;amp;SESSDATA=ed6f17cd%2C1458837256%2C7cd89c4f&amp;amp;gourl=https%3A%2F%2Fpassport.bilibili.com%2Fajax%2FminiLogin%2Fredirect&quot;&lt;/span&gt;&lt;/span&gt;&amp;#125;&lt;/span&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;crossDomain包含了你的cookie信息。这个信息是必须的，在发弹幕时需要用到，否则会提示你需要登录。&lt;br&gt;把DedeUserID，DedeUserID__ckMd5，SESSDATA三个值保存下来就行了。&lt;/p&gt;
+&lt;h2 id=&quot;发弹幕&quot;&gt;发弹幕&lt;/h2&gt;&lt;p&gt;发弹幕的请求：&lt;br&gt;&lt;figure class=&quot;highlight crystal&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;constant&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;symbol&quot;&gt;:http&lt;/span&gt;&lt;span class=&quot;symbol&quot;&gt;://live&lt;/span&gt;.bilibili.com/msg/send&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;需要提交表单，有六个字段。&lt;br&gt;“color=颜色&amp;amp;fontSize=字体大小&amp;amp;mode=模式&amp;amp;msg=内容&amp;amp;rnd=时间&amp;amp;roomId=房间号”&lt;br&gt;颜色填固定值16777215，字体大小25，mode填1。&lt;br&gt;注意把你的Cookie添加到你的http header里去。&lt;br&gt;形如：&lt;br&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Cookie: DedeUserID=&lt;span class=&quot;number&quot;&gt;241087&lt;/span&gt;; DedeUserID__ckMd5=&lt;span class=&quot;number&quot;&gt;7e772&lt;/span&gt;bf49d639da6; SESSDATA=ed6f17cd%&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;C1458751426%&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;C14f99d59;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;成功返回的json:&lt;br&gt;&lt;figure class=&quot;highlight json&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&quot;&lt;span class=&quot;attribute&quot;&gt;code&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;,&quot;&lt;span class=&quot;attribute&quot;&gt;msg&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;&lt;span class=&quot;string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;/span&gt;,&quot;&lt;span class=&quot;attribute&quot;&gt;data&lt;/span&gt;&quot;:&lt;span class=&quot;value&quot;&gt;[]&lt;/span&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;能够模拟登陆之后，能够调用的API就很多了，发弹幕只是其中一个简单的例子，剩下的就自己尝试吧w。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文只说明不使用验证码的登录，使用验证码的也是大同小异，打开B站F12然后登录，看一下HTTP报文就知道了。&lt;/p&gt;
+&lt;h2 id=&quot;登录&quot;&gt;登录&lt;/h2&gt;&lt;p&gt;登录密码需要加密（不过经测试，明文也是能登录的，如果用明文登录请跳至第三步），用的是RSA加密算法。&lt;/p&gt;
+&lt;
+    
+    </summary>
+    
+    
+      <category term="bilibili" scheme="https://winry.me/tags/bilibili/"/>
+    
+      <category term="http" scheme="https://winry.me/tags/http/"/>
+    
+  </entry>
   
   <entry>
     <title>win常用软件</title>
