@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://winry.me/"/>
-  <updated>2016-03-23T17:00:04.318Z</updated>
+  <updated>2016-05-07T11:37:11.002Z</updated>
   <id>https://winry.me/</id>
   
   <author>
@@ -14,6 +14,87 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>宿題</title>
+    <link href="https://winry.me/2016/05/07/nihongo-syukudai/"/>
+    <id>https://winry.me/2016/05/07/nihongo-syukudai/</id>
+    <published>2016-05-06T16:00:00.000Z</published>
+    <updated>2016-05-07T11:37:11.002Z</updated>
+    
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;那边那个穿蓝T恤的帅帅的男孩子不是我的男朋友&lt;/p&gt;
+&lt;p&gt;あそこの青いTシャツを着ているハンセムな男の子は私の彼氏じゃないです。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;你知道叶子老师最近胖了三公斤吗&lt;/p&gt;
+&lt;p&gt;最近葉子先生が３キロ太ったのを知ってる？&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;妈妈走进房间的时候，看见熊猫君正在做广播体操。&lt;/p&gt;
+&lt;p&gt;母が部屋に入った時，パンダ君が广播体操をしているのを見た。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;我把叶子酱送给我的围巾弄丢了。&lt;/p&gt;
+&lt;p&gt;葉子ちゃんにもらったマフラーを失くしました。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;このマークはどう言う意味ですか&lt;img src=&quot;/img/mif4GpA.jpg&quot; alt=&quot;mif4GpA&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;​    そのマークは曲がるが禁止と言う意味です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;地球太危险了，一起逃去火星吧&lt;/p&gt;
+&lt;p&gt;地球は危険ですから、一緒に火星へ逃げろ。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;那边那个穿蓝T恤的帅帅的男孩子不是我的男朋友&lt;/p&gt;
+&lt;p&gt;あそこの青いTシャツを着ているハンセムな男の子は私の彼氏じゃないです。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;你知道叶子老师最近胖了三公斤吗&lt;/p&gt;
+&lt;p&gt;最近葉子先生が３キロ太
+    
+    </summary>
+    
+    
+      <category term="日本語" scheme="https://winry.me/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>raft（未完）</title>
+    <link href="https://winry.me/2016/04/26/raft-protocol/"/>
+    <id>https://winry.me/2016/04/26/raft-protocol/</id>
+    <published>2016-04-25T16:00:00.000Z</published>
+    <updated>2016-05-07T11:37:54.428Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;5-1_基本概念&quot;&gt;5.1 基本概念&lt;/h4&gt;&lt;p&gt;​    一个Raft集群包括几个节点。五是一个典型的数量，这个数量使系统能够容错两次。每个节点在任何时候都处于以下三种状态之一：leader,follower,或candidate。运行正常的情况下，集群中有一个leader，其他节点都是followers。follower是被动的：它们不主动发起请求，只会响应来自leader或candidate的请求。leader处理所有的客户端请求（如果一个客户端与follower通讯，那么follower将转发请求给leader）。第三种状态，candidate，用于选举leader，选举将在5.2节详细说明。图例4展示了三种状态以及它们之间的转换，接下来就讨论状态之间的转换。&lt;/p&gt;
+&lt;p&gt;​    Raft被分割为不定长的terms。terms用连续的整数来编号。每个term从选举开始，选举中candidates将试图成为leader。如果一个candidate赢得了选举，那么该term剩下的时间中它将作为leader存在。某些情形下，选举会以分票告终。这种情况下，该term没有leader，一个新的term会马上开始。Raft确保每个term最多只有一个leader。&lt;/p&gt;
+&lt;p&gt;​    不同的节点可能在不同的时间点察觉到term的转换，在某些情况下，一个节点不会察觉到某次选举甚至整个term。term在Raft中起到扮演逻辑计时器的角色，它使各个节点能检测到过时的信息，比如过期的leader。每个节点都会存储current term，这个值会随着时间递增。节点之间通讯时会交换current terms信息，如果一个节点的current term小于其他人的，它会把它更新为较大的那个值。如果一个candidate或者leader发现它的term已经过时，它将立刻转为follower。如果一个节点接收到的请求包含了过时的term，它会拒绝该请求。&lt;/p&gt;
+&lt;p&gt;​    Raft节点之间通过远程过程调用（RPCs）通讯，最基本的一致性算法只需要两种类型的RPCs。RequestVote RPCs 在选举期间由candidates发起，Append-Entries RPCs 由leader发起，用于复制log，或者模拟心跳。第7节增加了第三种PRCs用于节点之间交换快照。如果没有收到响应，节点会及时的重试RPCs。为了更好的性能，RPCs将并行的进行。&lt;/p&gt;
+&lt;h4 id=&quot;5-2选举&quot;&gt;5.2选举&lt;/h4&gt;&lt;p&gt;​    Raft使用心跳机制来触发选举。节点启动之后，初始状态是followers。只要节点持续的收到来自leader或candidate的合法RPCs，它会一直保持follower的状态。Leaders周期性的发送心跳（不带leg entries的AppendEntries RPCs）来维持状态。如果一个follower一段时间没有收到请求，那么会发生选举超时，节点假定现在没有可用的leader，并开始选举一个新的leader。&lt;/p&gt;
+&lt;p&gt;​    当选举开始时，follower将term加一并转为candidate状态。然后它为自己投票并并行的向集群中的节点发起RequestVote RPCs。candidate保持其状态直到以下三种情况之一发生：(a)赢得选举，(b)其他节点声明自己是leader，(c)一段时间过去了而没有人胜出。以上三种结果会在下面的篇幅中分别讨论。&lt;/p&gt;
+&lt;p&gt;​    如果candidate收到集群中大部分节点相同term的投票，那么它将赢得选举。一个节点在一个term中最多只投一次票，按照先到先得的原则。多数票胜出原则保证了一个term当中最多只有一个candidate能赢得选举。一旦candidate赢得了选举，它的状态将转为leader。接着它会向其他节点发送心跳来防止新的选举。&lt;/p&gt;
+&lt;p&gt;​    等待投票的过程中，candidate可能会受到其他节点的AppendEntries RPC表示自己是leader。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;5-1_基本概念&quot;&gt;5.1 基本概念&lt;/h4&gt;&lt;p&gt;​    一个Raft集群包括几个节点。五是一个典型的数量，这个数量使系统能够容错两次。每个节点在任何时候都处于以下三种状态之一：leader,follower,或candidate。运行正常的情况下，集群中有一
+    
+    </summary>
+    
+    
+      <category term="一致性协议" scheme="https://winry.me/tags/%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>b站登陆以及发弹幕</title>
@@ -66,13 +147,13 @@
     <link href="https://winry.me/2016/03/16/win%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"/>
     <id>https://winry.me/2016/03/16/win常用软件/</id>
     <published>2016-03-15T16:00:00.000Z</published>
-    <updated>2016-03-16T13:44:11.452Z</updated>
+    <updated>2016-04-07T11:36:07.623Z</updated>
     
     <content type="html">&lt;p&gt;自己常用的windows软件列表。&lt;/p&gt;
 &lt;h4 id=&quot;editor&quot;&gt;editor&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;Notepad2-mod&lt;/li&gt;
 &lt;li&gt;Atom&lt;/li&gt;
-&lt;li&gt;Haroopad&lt;/li&gt;
+&lt;li&gt;Typora&lt;/li&gt;
 &lt;li&gt;Sublime&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&quot;sync&quot;&gt;sync&lt;/h4&gt;&lt;ul&gt;
@@ -121,10 +202,10 @@
 &lt;h4 id=&quot;editor&quot;&gt;editor&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;Notepad2-mod&lt;/li&gt;
 &lt;li&gt;Atom&lt;/li&gt;
-&lt;li&gt;Haroopad&lt;/li&gt;
+&lt;li&gt;Typora&lt;/li&gt;
 &lt;li&gt;Sublime&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id
+&lt;h4 id=&quot;
     
     </summary>
     
