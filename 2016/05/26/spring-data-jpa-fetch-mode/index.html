@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Java 8,currying,using," />
+  <meta name="keywords" content="jpa," />
 
 
 
@@ -47,19 +47,40 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;  byte charset = font1.GdiCharSet;&amp;#125;
-without using:123456789101112&amp;#123;  Font">
+<meta name="description" content="虽然hibernate里好几种fetch mode.
+
+SELECT
+SELECT with BatchSize
+JOIN
+SUBSELCT
+
+但是JPA里只有两种类型的fetching:EAGER和LAZY。在使用spring data jpa的时候，为了解决n+1query的问题，我们需要在查询中手动的控制fetch mode。
+123456789101112public void testP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Using and Currying in Java">
-<meta property="og:url" content="https://winry.me/2016/03/09/using-and-currying-in-java/index.html">
+<meta property="og:title" content="spring data jpa fetch mode">
+<meta property="og:url" content="https://winry.me/2016/05/26/spring-data-jpa-fetch-mode/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;  byte charset = font1.GdiCharSet;&amp;#125;
-without using:123456789101112&amp;#123;  Font">
-<meta property="og:updated_time" content="2016-03-09T15:37:06.838Z">
+<meta property="og:description" content="虽然hibernate里好几种fetch mode.
+
+SELECT
+SELECT with BatchSize
+JOIN
+SUBSELCT
+
+但是JPA里只有两种类型的fetching:EAGER和LAZY。在使用spring data jpa的时候，为了解决n+1query的问题，我们需要在查询中手动的控制fetch mode。
+123456789101112public void testP">
+<meta property="og:updated_time" content="2016-05-26T06:32:31.236Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Using and Currying in Java">
-<meta name="twitter:description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;  byte charset = font1.GdiCharSet;&amp;#125;
-without using:123456789101112&amp;#123;  Font">
+<meta name="twitter:title" content="spring data jpa fetch mode">
+<meta name="twitter:description" content="虽然hibernate里好几种fetch mode.
+
+SELECT
+SELECT with BatchSize
+JOIN
+SUBSELCT
+
+但是JPA里只有两种类型的fetching:EAGER和LAZY。在使用spring data jpa的时候，为了解决n+1query的问题，我们需要在查询中手动的控制fetch mode。
+123456789101112public void testP">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -77,7 +98,7 @@ without using:123456789101112&amp;#123;  Font">
         window.location.protocol = "https";
 </script>
 
-  <title> Using and Currying in Java | Winry's </title>
+  <title> spring data jpa fetch mode | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -221,7 +242,7 @@ without using:123456789101112&amp;#123;  Font">
             
             
               
-                Using and Currying in Java
+                spring data jpa fetch mode
               
             
           </h1>
@@ -230,34 +251,19 @@ without using:123456789101112&amp;#123;  Font">
         <div class="post-meta">
           <span class="post-time">
             發表於
-            <time itemprop="dateCreated" datetime="2016-03-09T00:00:00+08:00" content="2016-03-09">
-              2016-03-09
+            <time itemprop="dateCreated" datetime="2016-05-26T00:00:00+08:00" content="2016-05-26">
+              2016-05-26
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分類於
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2016/03/09/using-and-currying-in-java/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/09/using-and-currying-in-java/" itemprop="commentsCount"></span>
+              <a href="/2016/05/26/spring-data-jpa-fetch-mode/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/26/spring-data-jpa-fetch-mode/" itemprop="commentsCount"></span>
               </a>
             </span>
             
@@ -276,14 +282,23 @@ without using:123456789101112&amp;#123;  Font">
       
 
       
-        <span itemprop="articleBody"><p>C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.<br>use using:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> (Font font1 = <span class="keyword">new</span> Font(<span class="string">"Arial"</span>, <span class="number">10.0f</span>))</span><br><span class="line">&#123;</span><br><span class="line">  byte charset = font1.GdiCharSet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>without using:<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;</span><br><span class="line">  Font font1 = new Font<span class="list">(<span class="string">"Arial"</span>, <span class="number">10.0</span>f)</span><span class="comment">;</span></span><br><span class="line">  try</span><br><span class="line">  <span class="collection">&#123;</span><br><span class="line">    byte charset = font1.GdiCharSet;</span><br><span class="line">  &#125;</span></span><br><span class="line">  finally</span><br><span class="line">  <span class="collection">&#123;</span><br><span class="line">    if <span class="list">(<span class="keyword">font1</span> != null)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">IDisposable</span>)</span>font1)</span>.Dispose<span class="list">()</span><span class="comment">;</span></span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>java 7以后java里也有了类似的特性。如果一个类实现了java.lang.AutoCloseable，那么你可以使用如下的语法。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">try</span>(ClassImplementingAutoCloseable obj = new <span class="function">ClassImplementingAutoCloseable</span>())</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>接下来介绍如果一个类没有实现AutoCloseable，而又想实现类似using的功能应该怎么做。<br>MyFile是一个在使用之后需要被关闭的资源(需要调用close方法)。<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class MyFile &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">String</span> fileName;</span><br><span class="line"></span><br><span class="line">  MyFile(<span class="keyword">String</span> fileName) &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> close() &#123;</span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"closing file:"</span> + fileName);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> <span class="built_in">print</span>() &#123;</span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"fileName:"</span> + fileName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>MyFileHelper是MyFile的一个工具类。<br>currier接收第一个参数myFile，返回一个<code>Consumer&lt;Consumer&lt;MyFile&gt;&gt;</code>。<br>意思是这个consumer接收另外一个consumer作为参数（另外这个consumer才会真正的消费myFile）。<br>在currier的第二个参数被应用之前，它是不知道myFile会如何被消费的。<br>当然你也可以把consumer换成function，资源消费之后再产生一个结果。<br>这里用到了<a href="https://en.wikipedia.org/wiki/Currying" target="_blank" rel="external">Currying</a>，Currying是在函数式语言中接收单参数的函数模拟多参数的函数的技术。<br>使用Currying让它在语法上它更接近using，把资源的初始化和资源的处理分开。<br>同时，consumer和myfile两个参数能够在不同的地方被确定，它们可以被互相隔离的测试。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyFileHelper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> Consumer&lt;Consumer&lt;MyFile&gt;&gt; using(MyFile file) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">Function</span>&lt;<span class="title">MyFile</span>, <span class="title">Consumer</span>&lt;<span class="title">Consumer</span>&lt;<span class="title">MyFile</span>&gt;&gt;&gt; <span class="title">currier</span> = <span class="title">myFile</span> -&gt; <span class="title">consumer</span> -&gt; </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        consumer.accept(myFile);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">          myFile.close();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">      Consumer&lt;Consumer&lt;MyFile&gt;&gt; curried = currier.apply(file);</span><br><span class="line">      <span class="keyword">return</span> curried;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最后是测试代码。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  MyFileHelper.<span class="keyword">using</span>(<span class="keyword">new</span> MyFile(<span class="string">"my-file"</span>)).accept(</span><br><span class="line">    myFile -&gt; myFile.print());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fileName:<span class="keyword">my</span>-<span class="type">file</span></span><br><span class="line">closing <span class="type">file</span>:<span class="keyword">my</span>-<span class="type">file</span></span><br></pre></td></tr></table></figure></p>
-<p>完整的代码可以在这里看到：<br><a href="https://gist.github.com/fwrq41251/f6b82e201ff3b63d11ca" target="_blank" rel="external">gist</a></p>
+        <span itemprop="articleBody"><p>虽然hibernate里好几种fetch mode.</p>
+<ul>
+<li>SELECT</li>
+<li>SELECT with BatchSize</li>
+<li>JOIN</li>
+<li>SUBSELCT</li>
+</ul>
+<p>但是JPA里只有两种类型的fetching:<code>EAGER</code>和<code>LAZY</code>。在使用spring data jpa的时候，为了解决n+1query的问题，我们需要在查询中手动的控制fetch mode。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPagedSpecificationProjection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Specification&lt;Person&gt; spec = <span class="keyword">new</span> Specification&lt;Person&gt;() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;Person&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder cb)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (Long.class != query.getResultType()) &#123;</span><br><span class="line">                    root.fetch(Person_.addresses);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> cb.conjunction();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Pageable pageable = <span class="keyword">new</span> PageRequest(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">        Page&lt;Person&gt; page = personRepo.findAll(spec, pageable);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>第四行判断了返回类型是否为Long，是因为分页查询时spring data会先执行一次count查询，此时关联对count查询是没有意义的，会一个抛异常：</p>
+<blockquote>
+<p>org.hibernate.QueryException: query specified join fetching, but the owner of the fetched association was not present in the select list</p>
+</blockquote>
+<p>如果不是分页查询，则不需要判断返回类型。</p>
+<p>顺带一提，关于jpa里的@OneToOne关联，如果关联的表允许为空，即<code>optional=true</code>，那么<code>fetch = FetchType.LAZY</code>是不起作用的，具体的解释参考：<a href="https://developer.jboss.org/wiki/SomeExplanationsOnLazyLoadingone-to-one" target="_blank" rel="external">SomeExplanationsOnLazyLoadingone-to-one</a>。</p>
+<p>参考:<a href="https://jira.spring.io/browse/DATAJPA-105" target="_blank" rel="external">https://jira.spring.io/browse/DATAJPA-105</a></p>
+<p><a href="http://jdpgrailsdev.github.io/blog/2014/09/09/spring_data_hibernate_join.html" target="_blank" rel="external">http://jdpgrailsdev.github.io/blog/2014/09/09/spring_data_hibernate_join.html</a></p>
 </span>
       
     </div>
@@ -292,11 +307,7 @@ without using:123456789101112&amp;#123;  Font">
       
         <div class="post-tags">
           
-            <a href="/tags/Java-8/" rel="tag">#Java 8</a>
-          
-            <a href="/tags/currying/" rel="tag">#currying</a>
-          
-            <a href="/tags/using/" rel="tag">#using</a>
+            <a href="/tags/jpa/" rel="tag">#jpa</a>
           
         </div>
       
@@ -305,17 +316,13 @@ without using:123456789101112&amp;#123;  Font">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/30/pattern-matching-in-java(续)/" rel="next" title="Pattern matching in Java(续)">
-                <i class="fa fa-chevron-left"></i> Pattern matching in Java(续)
+              <a href="/2016/05/13/shiro-login/" rel="next" title="shiro登录">
+                <i class="fa fa-chevron-left"></i> shiro登录
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/16/win常用软件/" rel="prev" title="win常用软件">
-                win常用软件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -502,9 +509,9 @@ without using:123456789101112&amp;#123;  Font">
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = '2016/03/09/using-and-currying-in-java/';
-      var disqus_title = 'Using and Currying in Java';
-      var disqus_url = 'https://winry.me/2016/03/09/using-and-currying-in-java/';
+      var disqus_identifier = '2016/05/26/spring-data-jpa-fetch-mode/';
+      var disqus_title = 'spring data jpa fetch mode';
+      var disqus_url = 'https://winry.me/2016/05/26/spring-data-jpa-fetch-mode/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

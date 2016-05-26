@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://winry.me/"/>
-  <updated>2016-05-07T11:46:01.045Z</updated>
+  <updated>2016-05-26T06:32:31.236Z</updated>
   <id>https://winry.me/</id>
   
   <author>
@@ -16,11 +16,84 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>spring data jpa fetch mode</title>
+    <link href="https://winry.me/2016/05/26/spring-data-jpa-fetch-mode/"/>
+    <id>https://winry.me/2016/05/26/spring-data-jpa-fetch-mode/</id>
+    <published>2016-05-25T16:00:00.000Z</published>
+    <updated>2016-05-26T06:32:31.236Z</updated>
+    
+    <content type="html">&lt;p&gt;虽然hibernate里好几种fetch mode.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SELECT&lt;/li&gt;
+&lt;li&gt;SELECT with BatchSize&lt;/li&gt;
+&lt;li&gt;JOIN&lt;/li&gt;
+&lt;li&gt;SUBSELCT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是JPA里只有两种类型的fetching:&lt;code&gt;EAGER&lt;/code&gt;和&lt;code&gt;LAZY&lt;/code&gt;。在使用spring data jpa的时候，为了解决n+1query的问题，我们需要在查询中手动的控制fetch mode。&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;testPagedSpecificationProjection&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Specification&amp;lt;Person&amp;gt; spec = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Specification&amp;lt;Person&amp;gt;() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; Predicate &lt;span class=&quot;title&quot;&gt;toPredicate&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Root&amp;lt;Person&amp;gt; root, CriteriaQuery&amp;lt;?&amp;gt; query, CriteriaBuilder cb)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (Long.class != query.getResultType()) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    root.fetch(Person_.addresses);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; cb.conjunction();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Pageable pageable = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; PageRequest(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Page&amp;lt;Person&amp;gt; page = personRepo.findAll(spec, pageable);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第四行判断了返回类型是否为Long，是因为分页查询时spring data会先执行一次count查询，此时关联对count查询是没有意义的，会一个抛异常：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;org.hibernate.QueryException: query specified join fetching, but the owner of the fetched association was not present in the select list&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果不是分页查询，则不需要判断返回类型。&lt;/p&gt;
+&lt;p&gt;顺带一提，关于jpa里的@OneToOne关联，如果关联的表允许为空，即&lt;code&gt;optional=true&lt;/code&gt;，那么&lt;code&gt;fetch = FetchType.LAZY&lt;/code&gt;是不起作用的，具体的解释参考：&lt;a href=&quot;https://developer.jboss.org/wiki/SomeExplanationsOnLazyLoadingone-to-one&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SomeExplanationsOnLazyLoadingone-to-one&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;参考:&lt;a href=&quot;https://jira.spring.io/browse/DATAJPA-105&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://jira.spring.io/browse/DATAJPA-105&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://jdpgrailsdev.github.io/blog/2014/09/09/spring_data_hibernate_join.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://jdpgrailsdev.github.io/blog/2014/09/09/spring_data_hibernate_join.html&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;虽然hibernate里好几种fetch mode.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SELECT&lt;/li&gt;
+&lt;li&gt;SELECT with BatchSize&lt;/li&gt;
+&lt;li&gt;JOIN&lt;/li&gt;
+&lt;li&gt;SUBSELCT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是JPA里只有两种类型的
+    
+    </summary>
+    
+    
+      <category term="jpa" scheme="https://winry.me/tags/jpa/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>shiro登录</title>
+    <link href="https://winry.me/2016/05/13/shiro-login/"/>
+    <id>https://winry.me/2016/05/13/shiro-login/</id>
+    <published>2016-05-12T16:00:00.000Z</published>
+    <updated>2016-05-13T03:11:05.313Z</updated>
+    
+    <content type="html">&lt;p&gt;shiro默认的登录实现使用了用户名和密码进行验证。因为项目项目需要（使用了OAuth 2.0，不需要验证密码），改写了部分登录逻辑。在此记录一下主要用到的几个类。&lt;/p&gt;
+&lt;p&gt;AuthorizingRealm是验证登录以及获取权限的核心类。这个类是个抽象类，有两个待实现的方法。&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;AuthenticationInfo &lt;span class=&quot;title&quot;&gt;getAuthenticationInfo&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(AuthenticationToken token)&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;throws&lt;/span&gt; AuthenticationException&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;AuthorizationInfo &lt;span class=&quot;title&quot;&gt;doGetAuthorizationInfo&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(PrincipalCollection principals)&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;我们需要编写自己的Realm类继承这个抽象类并实现以上两个方法。&lt;code&gt;AuthenticationToken&lt;/code&gt;包括确认用户身份的信息（比如username），以及登录凭证信息（比如password）。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;AuthenticationInfo&lt;/code&gt;包括了登录凭证信息以及凭证信息的验证原则。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;AuthorizationInfo&lt;/code&gt;包括了用户的角色以及权限信息。&lt;/p&gt;
+&lt;p&gt;需要注意的是AuthorizingRealm的父类里包含了要使用的&lt;code&gt;AuthenticationToken&lt;/code&gt;类信息，其值是shiro的默认实现，&lt;code&gt;UsernamePasswordToken.class&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果你要实现自己的token，必须重新注入&lt;code&gt;authenticationTokenClass&lt;/code&gt;。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;shiro默认的登录实现使用了用户名和密码进行验证。因为项目项目需要（使用了OAuth 2.0，不需要验证密码），改写了部分登录逻辑。在此记录一下主要用到的几个类。&lt;/p&gt;
+&lt;p&gt;AuthorizingRealm是验证登录以及获取权限的核心类。这个类是个抽象类，有两个待实现
+    
+    </summary>
+    
+    
+      <category term="shiro" scheme="https://winry.me/tags/shiro/"/>
+    
+  </entry>
+  
+  <entry>
     <title>宿題</title>
     <link href="https://winry.me/2016/05/07/nihongo-syukudai/"/>
     <id>https://winry.me/2016/05/07/nihongo-syukudai/</id>
     <published>2016-05-06T16:00:00.000Z</published>
-    <updated>2016-05-07T11:46:01.045Z</updated>
+    <updated>2016-05-09T08:53:22.000Z</updated>
     
     <content type="html">&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;那边那个穿蓝T恤的帅帅的男孩子不是我的男朋友&lt;/p&gt;
@@ -40,11 +113,20 @@
 &lt;p&gt;葉子ちゃんにもらったマフラーを失くしました。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;このマークはどう言う意味ですか&lt;/p&gt;
-&lt;p&gt;そのマークは曲がるが禁止と言う意味です。&lt;/p&gt;
+&lt;p&gt;その標識は左に曲がるなと言う意味です。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/img/mif4GpA.jpg&quot; alt=&quot;mif4GpA&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;地球太危险了，一起逃去火星吧&lt;/p&gt;
-&lt;p&gt;地球は危険ですから、一緒に火星へ逃げろ。&lt;/p&gt;
+&lt;p&gt;地球は危ないですから、一緒に火星に逃げよう。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;请在以下句型中选择2~4个写一小段话，140字以内。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;～と、～。&lt;/li&gt;
+&lt;li&gt;～（る）ことがある。&lt;/li&gt;
+&lt;li&gt;～つもりだ。&lt;/li&gt;
+&lt;li&gt;～（だ）そうだ。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;突然アイドルに夢中になることもあるんですよね。毎日アイドルの映像見ないと、眠れない。私はアイドルにあうのに日本へ行くつもりだ、でも今年は無理だそうだ。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </content>

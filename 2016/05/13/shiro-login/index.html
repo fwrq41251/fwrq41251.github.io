@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Java 8,currying,using," />
+  <meta name="keywords" content="shiro," />
 
 
 
@@ -47,19 +47,22 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;  byte charset = font1.GdiCharSet;&amp;#125;
-without using:123456789101112&amp;#123;  Font">
+<meta name="description" content="shiro默认的登录实现使用了用户名和密码进行验证。因为项目项目需要（使用了OAuth 2.0，不需要验证密码），改写了部分登录逻辑。在此记录一下主要用到的几个类。
+AuthorizingRealm是验证登录以及获取权限的核心类。这个类是个抽象类，有两个待实现的方法。
+123AuthenticationInfo getAuthenticationInfo(AuthenticationToken t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Using and Currying in Java">
-<meta property="og:url" content="https://winry.me/2016/03/09/using-and-currying-in-java/index.html">
+<meta property="og:title" content="shiro登录">
+<meta property="og:url" content="https://winry.me/2016/05/13/shiro-login/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;  byte charset = font1.GdiCharSet;&amp;#125;
-without using:123456789101112&amp;#123;  Font">
-<meta property="og:updated_time" content="2016-03-09T15:37:06.838Z">
+<meta property="og:description" content="shiro默认的登录实现使用了用户名和密码进行验证。因为项目项目需要（使用了OAuth 2.0，不需要验证密码），改写了部分登录逻辑。在此记录一下主要用到的几个类。
+AuthorizingRealm是验证登录以及获取权限的核心类。这个类是个抽象类，有两个待实现的方法。
+123AuthenticationInfo getAuthenticationInfo(AuthenticationToken t">
+<meta property="og:updated_time" content="2016-05-13T03:11:05.313Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Using and Currying in Java">
-<meta name="twitter:description" content="C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.use using:1234using (Font font1 = new Font(&quot;Arial&quot;, 10.0f))&amp;#123;  byte charset = font1.GdiCharSet;&amp;#125;
-without using:123456789101112&amp;#123;  Font">
+<meta name="twitter:title" content="shiro登录">
+<meta name="twitter:description" content="shiro默认的登录实现使用了用户名和密码进行验证。因为项目项目需要（使用了OAuth 2.0，不需要验证密码），改写了部分登录逻辑。在此记录一下主要用到的几个类。
+AuthorizingRealm是验证登录以及获取权限的核心类。这个类是个抽象类，有两个待实现的方法。
+123AuthenticationInfo getAuthenticationInfo(AuthenticationToken t">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -77,7 +80,7 @@ without using:123456789101112&amp;#123;  Font">
         window.location.protocol = "https";
 </script>
 
-  <title> Using and Currying in Java | Winry's </title>
+  <title> shiro登录 | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -221,7 +224,7 @@ without using:123456789101112&amp;#123;  Font">
             
             
               
-                Using and Currying in Java
+                shiro登录
               
             
           </h1>
@@ -230,34 +233,19 @@ without using:123456789101112&amp;#123;  Font">
         <div class="post-meta">
           <span class="post-time">
             發表於
-            <time itemprop="dateCreated" datetime="2016-03-09T00:00:00+08:00" content="2016-03-09">
-              2016-03-09
+            <time itemprop="dateCreated" datetime="2016-05-13T00:00:00+08:00" content="2016-05-13">
+              2016-05-13
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分類於
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2016/03/09/using-and-currying-in-java/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/09/using-and-currying-in-java/" itemprop="commentsCount"></span>
+              <a href="/2016/05/13/shiro-login/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/13/shiro-login/" itemprop="commentsCount"></span>
               </a>
             </span>
             
@@ -276,14 +264,14 @@ without using:123456789101112&amp;#123;  Font">
       
 
       
-        <span itemprop="articleBody"><p>C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.<br>use using:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> (Font font1 = <span class="keyword">new</span> Font(<span class="string">"Arial"</span>, <span class="number">10.0f</span>))</span><br><span class="line">&#123;</span><br><span class="line">  byte charset = font1.GdiCharSet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>without using:<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;</span><br><span class="line">  Font font1 = new Font<span class="list">(<span class="string">"Arial"</span>, <span class="number">10.0</span>f)</span><span class="comment">;</span></span><br><span class="line">  try</span><br><span class="line">  <span class="collection">&#123;</span><br><span class="line">    byte charset = font1.GdiCharSet;</span><br><span class="line">  &#125;</span></span><br><span class="line">  finally</span><br><span class="line">  <span class="collection">&#123;</span><br><span class="line">    if <span class="list">(<span class="keyword">font1</span> != null)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">IDisposable</span>)</span>font1)</span>.Dispose<span class="list">()</span><span class="comment">;</span></span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>java 7以后java里也有了类似的特性。如果一个类实现了java.lang.AutoCloseable，那么你可以使用如下的语法。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">try</span>(ClassImplementingAutoCloseable obj = new <span class="function">ClassImplementingAutoCloseable</span>())</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>接下来介绍如果一个类没有实现AutoCloseable，而又想实现类似using的功能应该怎么做。<br>MyFile是一个在使用之后需要被关闭的资源(需要调用close方法)。<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class MyFile &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">String</span> fileName;</span><br><span class="line"></span><br><span class="line">  MyFile(<span class="keyword">String</span> fileName) &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> close() &#123;</span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"closing file:"</span> + fileName);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> <span class="built_in">print</span>() &#123;</span><br><span class="line">    System.out.<span class="built_in">println</span>(<span class="string">"fileName:"</span> + fileName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>MyFileHelper是MyFile的一个工具类。<br>currier接收第一个参数myFile，返回一个<code>Consumer&lt;Consumer&lt;MyFile&gt;&gt;</code>。<br>意思是这个consumer接收另外一个consumer作为参数（另外这个consumer才会真正的消费myFile）。<br>在currier的第二个参数被应用之前，它是不知道myFile会如何被消费的。<br>当然你也可以把consumer换成function，资源消费之后再产生一个结果。<br>这里用到了<a href="https://en.wikipedia.org/wiki/Currying" target="_blank" rel="external">Currying</a>，Currying是在函数式语言中接收单参数的函数模拟多参数的函数的技术。<br>使用Currying让它在语法上它更接近using，把资源的初始化和资源的处理分开。<br>同时，consumer和myfile两个参数能够在不同的地方被确定，它们可以被互相隔离的测试。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyFileHelper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> Consumer&lt;Consumer&lt;MyFile&gt;&gt; using(MyFile file) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">Function</span>&lt;<span class="title">MyFile</span>, <span class="title">Consumer</span>&lt;<span class="title">Consumer</span>&lt;<span class="title">MyFile</span>&gt;&gt;&gt; <span class="title">currier</span> = <span class="title">myFile</span> -&gt; <span class="title">consumer</span> -&gt; </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        consumer.accept(myFile);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">          myFile.close();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">      Consumer&lt;Consumer&lt;MyFile&gt;&gt; curried = currier.apply(file);</span><br><span class="line">      <span class="keyword">return</span> curried;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最后是测试代码。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  MyFileHelper.<span class="keyword">using</span>(<span class="keyword">new</span> MyFile(<span class="string">"my-file"</span>)).accept(</span><br><span class="line">    myFile -&gt; myFile.print());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fileName:<span class="keyword">my</span>-<span class="type">file</span></span><br><span class="line">closing <span class="type">file</span>:<span class="keyword">my</span>-<span class="type">file</span></span><br></pre></td></tr></table></figure></p>
-<p>完整的代码可以在这里看到：<br><a href="https://gist.github.com/fwrq41251/f6b82e201ff3b63d11ca" target="_blank" rel="external">gist</a></p>
+        <span itemprop="articleBody"><p>shiro默认的登录实现使用了用户名和密码进行验证。因为项目项目需要（使用了OAuth 2.0，不需要验证密码），改写了部分登录逻辑。在此记录一下主要用到的几个类。</p>
+<p>AuthorizingRealm是验证登录以及获取权限的核心类。这个类是个抽象类，有两个待实现的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">AuthenticationInfo <span class="title">getAuthenticationInfo</span><span class="params">(AuthenticationToken token)</span> <span class="keyword">throws</span> AuthenticationException</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">AuthorizationInfo <span class="title">doGetAuthorizationInfo</span><span class="params">(PrincipalCollection principals)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>我们需要编写自己的Realm类继承这个抽象类并实现以上两个方法。<code>AuthenticationToken</code>包括确认用户身份的信息（比如username），以及登录凭证信息（比如password）。</p>
+<p><code>AuthenticationInfo</code>包括了登录凭证信息以及凭证信息的验证原则。</p>
+<p><code>AuthorizationInfo</code>包括了用户的角色以及权限信息。</p>
+<p>需要注意的是AuthorizingRealm的父类里包含了要使用的<code>AuthenticationToken</code>类信息，其值是shiro的默认实现，<code>UsernamePasswordToken.class</code>。</p>
+<p>如果你要实现自己的token，必须重新注入<code>authenticationTokenClass</code>。</p>
 </span>
       
     </div>
@@ -292,11 +280,7 @@ without using:123456789101112&amp;#123;  Font">
       
         <div class="post-tags">
           
-            <a href="/tags/Java-8/" rel="tag">#Java 8</a>
-          
-            <a href="/tags/currying/" rel="tag">#currying</a>
-          
-            <a href="/tags/using/" rel="tag">#using</a>
+            <a href="/tags/shiro/" rel="tag">#shiro</a>
           
         </div>
       
@@ -305,16 +289,16 @@ without using:123456789101112&amp;#123;  Font">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/30/pattern-matching-in-java(续)/" rel="next" title="Pattern matching in Java(续)">
-                <i class="fa fa-chevron-left"></i> Pattern matching in Java(续)
+              <a href="/2016/05/07/nihongo-syukudai/" rel="next" title="宿題">
+                <i class="fa fa-chevron-left"></i> 宿題
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/16/win常用软件/" rel="prev" title="win常用软件">
-                win常用软件 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/05/26/spring-data-jpa-fetch-mode/" rel="prev" title="spring data jpa fetch mode">
+                spring data jpa fetch mode <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -502,9 +486,9 @@ without using:123456789101112&amp;#123;  Font">
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = '2016/03/09/using-and-currying-in-java/';
-      var disqus_title = 'Using and Currying in Java';
-      var disqus_url = 'https://winry.me/2016/03/09/using-and-currying-in-java/';
+      var disqus_identifier = '2016/05/13/shiro-login/';
+      var disqus_title = 'shiro登录';
+      var disqus_url = 'https://winry.me/2016/05/13/shiro-login/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
