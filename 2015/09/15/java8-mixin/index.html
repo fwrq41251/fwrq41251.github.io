@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Java 8,Mixin," />
 
 
 
@@ -86,15 +86,25 @@
 
 
 
-<meta name="description" content="acg&amp;programming sharing">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Winry's">
-<meta property="og:url" content="https://winry.me/archives/2016/03/index.html">
+<meta name="description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
+先来看看mixin是什么:
+
+In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8 Mixin">
+<meta property="og:url" content="https://winry.me/2015/09/15/java8-mixin/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="acg&amp;programming sharing">
+<meta property="og:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
+先来看看mixin是什么:
+
+In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
+<meta property="og:updated_time" content="2016-07-01T15:43:26.602Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Winry's">
-<meta name="twitter:description" content="acg&amp;programming sharing">
+<meta name="twitter:title" content="Java8 Mixin">
+<meta name="twitter:description" content="java8开始接口支持了默认方法,从此mixin也变为可能了.
+先来看看mixin是什么:
+
+In object-oriented programming languages, a mixin is a class that contains a combination of methods from other classes. How such a combination is done de">
 
 
 
@@ -118,7 +128,7 @@
         window.location.protocol = "https";
 </script>
 
-  <title> 歸檔 | Winry's </title>
+  <title> Java8 Mixin | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -148,7 +158,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -269,140 +279,173 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共有 12 篇文章。 繼續努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/23/b站登陆以及发弹幕/" itemprop="url">
-              
-                <span itemprop="name">b站登陆以及发弹幕</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-23T00:00:00+08:00"
-              content="2016-03-23" >
-          03-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/16/win常用软件/" itemprop="url">
-              
-                <span itemprop="name">win常用软件</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-16T00:00:00+08:00"
-              content="2016-03-16" >
-          03-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/09/using-and-currying-in-java/" itemprop="url">
-              
-                <span itemprop="name">Using and Currying in Java</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-09T00:00:00+08:00"
-              content="2016-03-09" >
-          03-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java8 Mixin
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2015-09-15T00:00:00+08:00" content="2015-09-15">
+              2015-09-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/09/15/java8-mixin/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/15/java8-mixin/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o">本文总阅读量</i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>java8开始接口支持了默认方法,从此mixin也变为可能了.</p>
+<p>先来看看mixin是什么:</p>
+<blockquote>
+<p>In object-oriented programming languages, a mixin is a class that contains a <strong><em>combination</em></strong> of methods from other classes. How such a combination is done depends on the language. If a combination contains all methods of combined classes, it is equivalent to <strong><em>multiple inheritance</em></strong>. Mixins are sometimes described as being “included” rather than “inherited”.</p>
+<p>Mixins encourage code reuse and can be used to avoid the inheritance ambiguity that multiple inheritance can cause (the “<a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem" target="_blank" rel="external">diamond problem</a>“), or to work around lack of support for multiple inheritance in a language. A mixin can also be viewed as an <strong><em>interface with implemented methods</em></strong>.</p>
+</blockquote>
+<p>mixin混合了其他类的功能但是又不会引发多重继承的问题.</p>
+<p>下面是一个简单的迭代器.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>给上面的迭代器增加了foreach方法,接收一个consumer,<br>对每个元素执行相同的操作.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RichIterator</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbsIterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">default</span> <span class="keyword">void</span> <span class="title">foreach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; consumer)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">while</span> (hasNext())</span><br><span class="line">			consumer.accept(next());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个基于String的实现.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">AbsIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String s;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">StringIterator</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.s = s;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> i &lt; s.length();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Character <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Character character = s.charAt(i);</span><br><span class="line">		i++;</span><br><span class="line">		<span class="keyword">return</span> character;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后是一个测试类.<br>测试用的迭代器即有StringIterator的实现,<br>又具有RichIterator的foreach方法.<br>在java8以前我们要怎么做这件事呢,<br>似乎是没法做,<br>由于接口没有默认方法,<br>我们必须在每个迭代器实现中重写foreach方法.<br>mixin增强了代码的重用能力.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringIteratorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Iter iter = <span class="keyword">new</span> Iter(<span class="string">"test"</span>);</span><br><span class="line">		iter.foreach(System.out::println);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Iter</span> <span class="keyword">extends</span> <span class="title">StringIterator</span> <span class="keyword">implements</span> <span class="title">RichIterator</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Iter</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">super</span>(s);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过值得注意的是，java的mixin比scala在功能还是要弱一些，由于scala有with关键字，可以在实例化时进行mixin，可以直接强化trait的方法，类似于装饰器的作用。java里子类的实现则会直接覆盖掉父类。</p>
+<p>参考:<a href="http://www.scala-lang.org/old/node/117" target="_blank" rel="external">scala-mixin</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java-8/" rel="tag">#Java 8</a>
+          
+            <a href="/tags/Mixin/" rel="tag">#Mixin</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/09/博客启用https/" rel="prev" title="博客启用https(支持hexo)">
+                博客启用https(支持hexo) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575a18e0624c2988" async = "async" ></script>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -410,6 +453,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -429,8 +483,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://winry.me/img/avatar1.jpg"
@@ -507,6 +570,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目錄</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -619,11 +693,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
@@ -641,9 +713,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = 'archives/2016/03/index.html';
-      var disqus_title = "";
-      var disqus_url = '';
+      var disqus_identifier = '2015/09/15/java8-mixin/';
+      var disqus_title = "Java8 Mixin";
+      var disqus_url = 'https://winry.me/2015/09/15/java8-mixin/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -654,6 +726,8 @@
       }
 
       run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
       
     </script>
   
