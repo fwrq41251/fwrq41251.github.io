@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="bilibili,http," />
+  <meta name="keywords" content="scala,spark," />
 
 
 
@@ -86,34 +86,16 @@
 
 
 
-<meta name="description" content="本文只说明不使用验证码的登录，使用验证码的也是大同小异，打开B站F12然后登录，看一下HTTP报文就知道了。
-登录登录密码需要加密（不过经测试，明文也是能登录的，如果用明文登录请跳至第三步），用的是RSA加密算法。
-
-首先要获取公钥：
-1GET:https://passport.bilibili.com/login?act=getkey&amp;amp;_= + 当前时间
-返回的json类似这个样子：
-1">
+<meta name="description" content="combineByKey是spark的一个pair transformation。当你需要根据key来合并你的value，而你期望的合并后的value的返回类型和原本value的类型不同的时候你就会用到它（reduceByKey的返回类型则和原本的pair相同）。用groupByKey再对groupBy的结果处理最终可以达到相同的效果，但是性能却不一样，实际上combineByKey提供的是更高级">
 <meta property="og:type" content="article">
-<meta property="og:title" content="b站登陆以及发弹幕">
-<meta property="og:url" content="https://winry.me/2016/03/23/b站登陆以及发弹幕/index.html">
+<meta property="og:title" content="spark combineByKey">
+<meta property="og:url" content="https://winry.me/2016/12/01/spark-combineByKey/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="本文只说明不使用验证码的登录，使用验证码的也是大同小异，打开B站F12然后登录，看一下HTTP报文就知道了。
-登录登录密码需要加密（不过经测试，明文也是能登录的，如果用明文登录请跳至第三步），用的是RSA加密算法。
-
-首先要获取公钥：
-1GET:https://passport.bilibili.com/login?act=getkey&amp;amp;_= + 当前时间
-返回的json类似这个样子：
-1">
-<meta property="og:updated_time" content="2016-03-23T17:00:04.318Z">
+<meta property="og:description" content="combineByKey是spark的一个pair transformation。当你需要根据key来合并你的value，而你期望的合并后的value的返回类型和原本value的类型不同的时候你就会用到它（reduceByKey的返回类型则和原本的pair相同）。用groupByKey再对groupBy的结果处理最终可以达到相同的效果，但是性能却不一样，实际上combineByKey提供的是更高级">
+<meta property="og:updated_time" content="2016-12-01T02:46:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="b站登陆以及发弹幕">
-<meta name="twitter:description" content="本文只说明不使用验证码的登录，使用验证码的也是大同小异，打开B站F12然后登录，看一下HTTP报文就知道了。
-登录登录密码需要加密（不过经测试，明文也是能登录的，如果用明文登录请跳至第三步），用的是RSA加密算法。
-
-首先要获取公钥：
-1GET:https://passport.bilibili.com/login?act=getkey&amp;amp;_= + 当前时间
-返回的json类似这个样子：
-1">
+<meta name="twitter:title" content="spark combineByKey">
+<meta name="twitter:description" content="combineByKey是spark的一个pair transformation。当你需要根据key来合并你的value，而你期望的合并后的value的返回类型和原本value的类型不同的时候你就会用到它（reduceByKey的返回类型则和原本的pair相同）。用groupByKey再对groupBy的结果处理最终可以达到相同的效果，但是性能却不一样，实际上combineByKey提供的是更高级">
 
 
 
@@ -137,7 +119,7 @@
         window.location.protocol = "https";
 </script>
 
-  <title> b站登陆以及发弹幕 | Winry's </title>
+  <title> spark combineByKey | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -309,7 +291,7 @@
             
             
               
-                b站登陆以及发弹幕
+                spark combineByKey
               
             
           </h1>
@@ -321,19 +303,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2016-03-23T00:00:00+08:00" content="2016-03-23">
-              2016-03-23
+            <time itemprop="dateCreated" datetime="2016-12-01T00:00:00+08:00" content="2016-12-01">
+              2016-12-01
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/23/b站登陆以及发弹幕/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/23/b站登陆以及发弹幕/" itemprop="commentsCount"></span>
+                <a href="/2016/12/01/spark-combineByKey/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/12/01/spark-combineByKey/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -361,28 +362,11 @@
       
 
       
-        <p>本文只说明不使用验证码的登录，使用验证码的也是大同小异，打开B站F12然后登录，看一下HTTP报文就知道了。</p>
-<h2 id="登录">登录</h2><p>登录密码需要加密（不过经测试，明文也是能登录的，如果用明文登录请跳至第三步），用的是RSA加密算法。</p>
-<ol>
-<li><p>首先要获取公钥：</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">GET</span><span class="symbol">:https</span><span class="symbol">://passport</span>.bilibili.com/login?act=getkey&amp;_= + 当前时间</span><br></pre></td></tr></table></figure>
-<p>返回的json类似这个样子：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"<span class="attribute">hash</span>":<span class="value"><span class="string">"4d656f543748e605"</span></span>,"<span class="attribute">key</span>":<span class="value"><span class="string">"-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCdScM09sZJqFPX7bvmB2y6i08J\nbHsa0v4THafPbJN9NoaZ9Djz1LmeLkVlmWx1DwgHVW+K7LVWT5FV3johacVRuV98\n37+RNntEK6SE82MPcl7fA++dmW2cLlAjsIIkrX+aIvvSGCuUfcWpWFy3YVDqhuHr\nNDjdNcaefJIQHMW+sQIDAQAB\n-----END PUBLIC KEY-----\n"</span></span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>把hash值加到你的密码前面，然后用公钥加密。注意公钥是Base64编码过的，去掉头尾和换行之后要先解码。同样的，公钥加密之后的密文也要经过Base64编码。</p>
-</li>
-<li><p>登录请求：</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">POST</span><span class="symbol">:https</span><span class="symbol">://passport</span>.bilibili.com/ajax/miniLogin/login</span><br></pre></td></tr></table></figure>
-<p>随之还要提交一个表单，有四个字段。<br>“userid=用户名&amp;pwd=密码&amp;captcha=验证码&amp;keep=是否保持登录状态”<br>验证码填空就行，keep填1为是，0为否。<br>登录成功后，返回的json:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"<span class="attribute">status</span>":<span class="value"><span class="literal">true</span></span>,"<span class="attribute">ts</span>":<span class="value"><span class="number">1458750856</span></span>,"<span class="attribute">data</span>":<span class="value">&#123;"<span class="attribute">code</span>":<span class="value"><span class="number">0</span></span>,"<span class="attribute">crossDomain</span>":<span class="value"><span class="string">"https://passport.bilibili.com/crossDomain?DedeUserID=241087&amp;DedeUserID__ckMd5=7e772bf49d639da6&amp;Expires=1800&amp;SESSDATA=ed6f17cd%2C1458837256%2C7cd89c4f&amp;gourl=https%3A%2F%2Fpassport.bilibili.com%2Fajax%2FminiLogin%2Fredirect"</span></span>&#125;</span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>crossDomain包含了你的cookie信息。这个信息是必须的，在发弹幕时需要用到，否则会提示你需要登录。<br>把DedeUserID，DedeUserID__ckMd5，SESSDATA三个值保存下来就行了。</p>
-<h2 id="发弹幕">发弹幕</h2><p>发弹幕的请求：<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">POST</span><span class="symbol">:http</span><span class="symbol">://live</span>.bilibili.com/msg/send</span><br></pre></td></tr></table></figure></p>
-<p>需要提交表单，有六个字段。<br>“color=颜色&amp;fontSize=字体大小&amp;mode=模式&amp;msg=内容&amp;rnd=时间&amp;roomId=房间号”<br>颜色填固定值16777215，字体大小25，mode填1。<br>注意把你的Cookie添加到你的http header里去。<br>形如：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie: DedeUserID=<span class="number">241087</span>; DedeUserID__ckMd5=<span class="number">7e772</span>bf49d639da6; SESSDATA=ed6f17cd%<span class="number">2</span>C1458751426%<span class="number">2</span>C14f99d59;</span><br></pre></td></tr></table></figure></p>
-<p>成功返回的json:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"<span class="attribute">code</span>":<span class="value"><span class="number">0</span></span>,"<span class="attribute">msg</span>":<span class="value"><span class="string">""</span></span>,"<span class="attribute">data</span>":<span class="value">[]</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>能够模拟登陆之后，能够调用的API就很多了，发弹幕只是其中一个简单的例子，剩下的就自己尝试吧w。</p>
+        <p>combineByKey是spark的一个pair transformation。当你需要根据key来合并你的value，而你期望的合并后的value的返回类型和原本value的类型不同的时候你就会用到它（reduceByKey的返回类型则和原本的pair相同）。用groupByKey再对groupBy的结果处理最终可以达到相同的效果，但是性能却不一样，实际上combineByKey提供的是更高级的抽象。性能上的差异可以看这篇文章:<a href="https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html" target="_blank" rel="external">avoid groupByKey</a></p>
+<p>combineByKey函数长这样，V表示原本的value的类型，C表示你期望返回的合并之后的类型。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">combineByKey</span>[</span><span class="type">C</span>](</span><br><span class="line">      createCombiner: <span class="type">V</span> =&gt; <span class="type">C</span>,</span><br><span class="line">      mergeValue: (<span class="type">C</span>, <span class="type">V</span>) =&gt; <span class="type">C</span>,</span><br><span class="line">      mergeCombiners: (<span class="type">C</span>, <span class="type">C</span>) =&gt; <span class="type">C</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">C</span>)] = self.withScope &#123;</span><br><span class="line">    combineByKeyWithClassTag(createCombiner, mergeValue, mergeCombiners)(<span class="literal">null</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看一下combineByKey的几个参数：<br>第一个参数createCombiner表示如何由一个原本的value构造出combiner的对象，combiner可能包括一些value的field，以及一些value中没有的初始值。<br>第二个参数mergeValue表示value是如何被合并到combiner里的。<br>第三个参数mergeCombiners表示各个combiner的结果是如何被合并的。</p>
+<p>最后看一个用combineByKey来求平均数的例子。它比求和多了一个步骤，需要把和除以个数（这个时候简单的reduceByKey就满足不了需求了）。所以combiner需要两个参数，一个和，一个个数。<br><figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val scores: RDD[(String, <span class="keyword">Int</span>)] = sc.parallelize(<span class="keyword">List</span>((<span class="string">"chinese"</span>, <span class="number">88</span>), (<span class="string">"chinese"</span>, <span class="number">90</span>), (<span class="string">"math"</span>, <span class="number">60</span>), (<span class="string">"math"</span>, <span class="number">87</span>)))</span><br><span class="line">scores.combineByKey(</span><br><span class="line">      (v) =&gt; (v, <span class="number">1</span>),</span><br><span class="line">      (acc: (<span class="keyword">Int</span>, <span class="keyword">Int</span>), v) =&gt; (acc._1 + v, acc._2 + <span class="number">1</span>),</span><br><span class="line">      (acc1: (<span class="keyword">Int</span>, <span class="keyword">Int</span>), acc2: (<span class="keyword">Int</span>, <span class="keyword">Int</span>)) =&gt; (acc1._1 + acc2._1, acc1._2 + acc2._2)</span><br><span class="line">).collectAsMap().<span class="keyword">foreach</span>(e =&gt; println(<span class="string">"course:"</span> + e._1 + <span class="string">", avg:"</span> + e._2._1 / e._2._2))</span><br><span class="line"><span class="comment">//    course:chinese, avg:89</span></span><br><span class="line"><span class="comment">//    course:math, avg:73</span></span><br></pre></td></tr></table></figure></p>
+<p>代码在scala-2.11.8,spark-core_2.11-2.0.0下编译通过。<br>参考:<a href="https://zhangyi.gitbooks.io/spark-in-action/content/chapter2/combinebykey.html" target="_blank" rel="external">combinebykey</a></p>
 
       
     </div>
@@ -404,9 +388,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/bilibili/" rel="tag">#bilibili</a>
+            <a href="/tags/scala/" rel="tag">#scala</a>
           
-            <a href="/tags/http/" rel="tag">#http</a>
+            <a href="/tags/spark/" rel="tag">#spark</a>
           
         </div>
       
@@ -415,17 +399,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/16/win常用软件/" rel="next" title="win常用软件">
-                <i class="fa fa-chevron-left"></i> win常用软件
+              <a href="/2016/08/02/anime-top-20/" rel="next" title="anime top 20">
+                <i class="fa fa-chevron-left"></i> anime top 20
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/26/raft-protocol/" rel="prev" title="raft（未完）">
-                raft（未完） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -576,7 +556,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#登录"><span class="nav-number">1.</span> <span class="nav-text">登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发弹幕"><span class="nav-number">2.</span> <span class="nav-text">发弹幕</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目錄</p>
             
           </div>
         </section>
@@ -712,9 +692,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = '2016/03/23/b站登陆以及发弹幕/';
-      var disqus_title = "b站登陆以及发弹幕";
-      var disqus_url = 'https://winry.me/2016/03/23/b站登陆以及发弹幕/';
+      var disqus_identifier = '2016/12/01/spark-combineByKey/';
+      var disqus_title = "spark combineByKey";
+      var disqus_url = 'https://winry.me/2016/12/01/spark-combineByKey/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

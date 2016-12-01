@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://winry.me/"/>
-  <updated>2016-08-02T13:18:53.050Z</updated>
+  <updated>2016-12-01T02:46:41.000Z</updated>
   <id>https://winry.me/</id>
   
   <author>
@@ -14,6 +14,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>spark combineByKey</title>
+    <link href="https://winry.me/2016/12/01/spark-combineByKey/"/>
+    <id>https://winry.me/2016/12/01/spark-combineByKey/</id>
+    <published>2016-11-30T16:00:00.000Z</published>
+    <updated>2016-12-01T02:46:41.000Z</updated>
+    
+    <content type="html">&lt;p&gt;combineByKey是spark的一个pair transformation。当你需要根据key来合并你的value，而你期望的合并后的value的返回类型和原本value的类型不同的时候你就会用到它（reduceByKey的返回类型则和原本的pair相同）。用groupByKey再对groupBy的结果处理最终可以达到相同的效果，但是性能却不一样，实际上combineByKey提供的是更高级的抽象。性能上的差异可以看这篇文章:&lt;a href=&quot;https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;avoid groupByKey&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;combineByKey函数长这样，V表示原本的value的类型，C表示你期望返回的合并之后的类型。&lt;br&gt;&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;combineByKey&lt;/span&gt;[&lt;/span&gt;&lt;span class=&quot;type&quot;&gt;C&lt;/span&gt;](&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      createCombiner: &lt;span class=&quot;type&quot;&gt;V&lt;/span&gt; =&amp;gt; &lt;span class=&quot;type&quot;&gt;C&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      mergeValue: (&lt;span class=&quot;type&quot;&gt;C&lt;/span&gt;, &lt;span class=&quot;type&quot;&gt;V&lt;/span&gt;) =&amp;gt; &lt;span class=&quot;type&quot;&gt;C&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      mergeCombiners: (&lt;span class=&quot;type&quot;&gt;C&lt;/span&gt;, &lt;span class=&quot;type&quot;&gt;C&lt;/span&gt;) =&amp;gt; &lt;span class=&quot;type&quot;&gt;C&lt;/span&gt;): &lt;span class=&quot;type&quot;&gt;RDD&lt;/span&gt;[(&lt;span class=&quot;type&quot;&gt;K&lt;/span&gt;, &lt;span class=&quot;type&quot;&gt;C&lt;/span&gt;)] = self.withScope &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    combineByKeyWithClassTag(createCombiner, mergeValue, mergeCombiners)(&lt;span class=&quot;literal&quot;&gt;null&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;看一下combineByKey的几个参数：&lt;br&gt;第一个参数createCombiner表示如何由一个原本的value构造出combiner的对象，combiner可能包括一些value的field，以及一些value中没有的初始值。&lt;br&gt;第二个参数mergeValue表示value是如何被合并到combiner里的。&lt;br&gt;第三个参数mergeCombiners表示各个combiner的结果是如何被合并的。&lt;/p&gt;
+&lt;p&gt;最后看一个用combineByKey来求平均数的例子。它比求和多了一个步骤，需要把和除以个数（这个时候简单的reduceByKey就满足不了需求了）。所以combiner需要两个参数，一个和，一个个数。&lt;br&gt;&lt;figure class=&quot;highlight zephir&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;val scores: RDD[(String, &lt;span class=&quot;keyword&quot;&gt;Int&lt;/span&gt;)] = sc.parallelize(&lt;span class=&quot;keyword&quot;&gt;List&lt;/span&gt;((&lt;span class=&quot;string&quot;&gt;&quot;chinese&quot;&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;88&lt;/span&gt;), (&lt;span class=&quot;string&quot;&gt;&quot;chinese&quot;&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;90&lt;/span&gt;), (&lt;span class=&quot;string&quot;&gt;&quot;math&quot;&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;60&lt;/span&gt;), (&lt;span class=&quot;string&quot;&gt;&quot;math&quot;&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;87&lt;/span&gt;)))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;scores.combineByKey(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      (v) =&amp;gt; (v, &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      (acc: (&lt;span class=&quot;keyword&quot;&gt;Int&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;Int&lt;/span&gt;), v) =&amp;gt; (acc._1 + v, acc._2 + &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      (acc1: (&lt;span class=&quot;keyword&quot;&gt;Int&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;Int&lt;/span&gt;), acc2: (&lt;span class=&quot;keyword&quot;&gt;Int&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;Int&lt;/span&gt;)) =&amp;gt; (acc1._1 + acc2._1, acc1._2 + acc2._2)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;).collectAsMap().&lt;span class=&quot;keyword&quot;&gt;foreach&lt;/span&gt;(e =&amp;gt; println(&lt;span class=&quot;string&quot;&gt;&quot;course:&quot;&lt;/span&gt; + e._1 + &lt;span class=&quot;string&quot;&gt;&quot;, avg:&quot;&lt;/span&gt; + e._2._1 / e._2._2))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//    course:chinese, avg:89&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//    course:math, avg:73&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;代码在scala-2.11.8,spark-core_2.11-2.0.0下编译通过。&lt;br&gt;参考:&lt;a href=&quot;https://zhangyi.gitbooks.io/spark-in-action/content/chapter2/combinebykey.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;combinebykey&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;combineByKey是spark的一个pair transformation。当你需要根据key来合并你的value，而你期望的合并后的value的返回类型和原本value的类型不同的时候你就会用到它（reduceByKey的返回类型则和原本的pair相同）。用grou
+    
+    </summary>
+    
+      <category term="Programming" scheme="https://winry.me/categories/Programming/"/>
+    
+    
+      <category term="scala" scheme="https://winry.me/tags/scala/"/>
+    
+      <category term="spark" scheme="https://winry.me/tags/spark/"/>
+    
+  </entry>
   
   <entry>
     <title>anime top 20</title>
