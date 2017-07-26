@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://winry.me/"/>
-  <updated>2016-12-01T02:46:41.000Z</updated>
+  <updated>2017-07-26T16:56:10.057Z</updated>
   <id>https://winry.me/</id>
   
   <author>
@@ -16,10 +16,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>exception handling and dynamic scope</title>
+    <link href="https://winry.me/2017/07/26/exception-handling%20-and-dynamic-scope/"/>
+    <id>https://winry.me/2017/07/26/exception-handling -and-dynamic-scope/</id>
+    <published>2017-07-25T15:00:00.000Z</published>
+    <updated>2017-07-26T16:56:10.057Z</updated>
+    
+    <content type="html">&lt;p&gt;最近在上coursera上的programming language的时候，Dan提到exception handling和dynamic scope很相似，但是只是简单的提了一下，并没有说哪里相似，接下来就比较一下这两者。&lt;/p&gt;
+&lt;p&gt;先看一个例子。&lt;/p&gt;
+&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;x&lt;/span&gt; =&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;f&lt;/span&gt;(&lt;/span&gt;) = x&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;f2&lt;/span&gt;(&lt;/span&gt;) = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;x&lt;/span&gt; =&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  f()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这里f2()的值是什么呢，在scala里是1，因为scala用的是lexical scope，如果是dynamic scope那就是2。&lt;/p&gt;
+&lt;p&gt;为了说明lexical scope和dynamic scope，首先要搞清楚自由变量的概念，自由变量就是函数里除了传进来的参数以外的变量，在f()里面就是x，因为x不是f()的参数。&lt;/p&gt;
+&lt;p&gt;在lexical scope的情况下，自由变量的值是函数定义时自由变量的值。这时候f()里面的x就是1。实际上这时候函数包括了两个部分，一部分是它的code，另一部分是自由变量和它的值的映射，这两个部分合起来称为闭包。函数调用的时候自由变量的值是确定的，就是闭包里的值。&lt;/p&gt;
+&lt;p&gt;在dynamic scope的情况下，自由变量的值就不太好确定了，函数调用的时候会去查runtime stack的符号表，自由变量最后的值（后面的值会覆盖前面的）就是就是它这次函数调用里的值。&lt;/p&gt;
+&lt;p&gt;最后来看一下exception handling是怎么一回事，假设我们在代码的很多地方，handle了同一个异常，我们光看代码是不能确定最后哪个handling会起作用的。当一个异常发生时，只有在runtime，函数调用栈顶的那个函数最后会handle那个异常。是不是和dynamic scope有点相似呢。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在上coursera上的programming language的时候，Dan提到exception handling和dynamic scope很相似，但是只是简单的提了一下，并没有说哪里相似，接下来就比较一下这两者。&lt;/p&gt;
+&lt;p&gt;先看一个例子。&lt;/p&gt;
+&lt;figu
+    
+    </summary>
+    
+      <category term="Programming" scheme="https://winry.me/categories/Programming/"/>
+    
+    
+      <category term="dynamic scope" scheme="https://winry.me/tags/dynamic-scope/"/>
+    
+  </entry>
+  
+  <entry>
     <title>spark combineByKey</title>
     <link href="https://winry.me/2016/12/01/spark-combineByKey/"/>
     <id>https://winry.me/2016/12/01/spark-combineByKey/</id>
-    <published>2016-11-30T16:00:00.000Z</published>
+    <published>2016-11-30T15:00:00.000Z</published>
     <updated>2016-12-01T02:46:41.000Z</updated>
     
     <content type="html">&lt;p&gt;combineByKey是spark的一个pair transformation。当你需要根据key来合并你的value，而你期望的合并后的value的返回类型和原本value的类型不同的时候你就会用到它（reduceByKey的返回类型则和原本的pair相同）。用groupByKey再对groupBy的结果处理最终可以达到相同的效果，但是性能却不一样，实际上combineByKey提供的是更高级的抽象。性能上的差异可以看这篇文章:&lt;a href=&quot;https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;avoid groupByKey&lt;/a&gt;&lt;/p&gt;
@@ -48,7 +80,7 @@
     <title>anime top 20</title>
     <link href="https://winry.me/2016/08/02/anime-top-20/"/>
     <id>https://winry.me/2016/08/02/anime-top-20/</id>
-    <published>2016-08-01T16:00:00.000Z</published>
+    <published>2016-08-01T15:00:00.000Z</published>
     <updated>2016-08-02T13:18:53.050Z</updated>
     
     <content type="html">&lt;p&gt; （三年前写的TOP20，补充几部这几年看过比较好的。高达00，圣母在上，京吹部，女子落语，touch，TT，月刊少女，邻座的怪同学，悠哉，飞跃巅峰1，还有幸运星不知道当时为什么没排进去）&lt;/p&gt;
@@ -118,7 +150,7 @@
     <title>spring data jpa fetch mode</title>
     <link href="https://winry.me/2016/05/26/spring-data-jpa-fetch-mode/"/>
     <id>https://winry.me/2016/05/26/spring-data-jpa-fetch-mode/</id>
-    <published>2016-05-25T16:00:00.000Z</published>
+    <published>2016-05-25T15:00:00.000Z</published>
     <updated>2016-05-26T12:46:59.829Z</updated>
     
     <content type="html">&lt;p&gt;虽然hibernate里好几种fetch mode.&lt;/p&gt;
@@ -162,7 +194,7 @@
     <title>shiro登录</title>
     <link href="https://winry.me/2016/05/13/shiro-login/"/>
     <id>https://winry.me/2016/05/13/shiro-login/</id>
-    <published>2016-05-12T16:00:00.000Z</published>
+    <published>2016-05-12T15:00:00.000Z</published>
     <updated>2016-05-13T03:11:05.313Z</updated>
     
     <content type="html">&lt;p&gt;shiro默认的登录实现使用了用户名和密码进行验证。因为项目项目需要（使用了OAuth 2.0，不需要验证密码），改写了部分登录逻辑。在此记录一下主要用到的几个类。&lt;/p&gt;
@@ -191,7 +223,7 @@
     <title>宿題</title>
     <link href="https://winry.me/2016/05/07/nihongo-syukudai/"/>
     <id>https://winry.me/2016/05/07/nihongo-syukudai/</id>
-    <published>2016-05-06T16:00:00.000Z</published>
+    <published>2016-05-06T15:00:00.000Z</published>
     <updated>2016-08-02T12:15:06.804Z</updated>
     
     <content type="html">&lt;ul&gt;
@@ -297,7 +329,7 @@
     <title>raft（未完）</title>
     <link href="https://winry.me/2016/04/26/raft-protocol/"/>
     <id>https://winry.me/2016/04/26/raft-protocol/</id>
-    <published>2016-04-25T16:00:00.000Z</published>
+    <published>2016-04-25T15:00:00.000Z</published>
     <updated>2016-05-07T11:37:54.428Z</updated>
     
     <content type="html">&lt;h4 id=&quot;5-1_基本概念&quot;&gt;5.1 基本概念&lt;/h4&gt;&lt;p&gt;​    一个Raft集群包括几个节点。五是一个典型的数量，这个数量使系统能够容错两次。每个节点在任何时候都处于以下三种状态之一：leader,follower,或candidate。运行正常的情况下，集群中有一个leader，其他节点都是followers。follower是被动的：它们不主动发起请求，只会响应来自leader或candidate的请求。leader处理所有的客户端请求（如果一个客户端与follower通讯，那么follower将转发请求给leader）。第三种状态，candidate，用于选举leader，选举将在5.2节详细说明。图例4展示了三种状态以及它们之间的转换，接下来就讨论状态之间的转换。&lt;/p&gt;
@@ -325,7 +357,7 @@
     <title>b站登陆以及发弹幕</title>
     <link href="https://winry.me/2016/03/23/b%E7%AB%99%E7%99%BB%E9%99%86%E4%BB%A5%E5%8F%8A%E5%8F%91%E5%BC%B9%E5%B9%95/"/>
     <id>https://winry.me/2016/03/23/b站登陆以及发弹幕/</id>
-    <published>2016-03-22T16:00:00.000Z</published>
+    <published>2016-03-22T15:00:00.000Z</published>
     <updated>2016-03-23T17:00:04.318Z</updated>
     
     <content type="html">&lt;p&gt;本文只说明不使用验证码的登录，使用验证码的也是大同小异，打开B站F12然后登录，看一下HTTP报文就知道了。&lt;/p&gt;
@@ -371,7 +403,7 @@
     <title>win常用软件</title>
     <link href="https://winry.me/2016/03/16/win%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"/>
     <id>https://winry.me/2016/03/16/win常用软件/</id>
-    <published>2016-03-15T16:00:00.000Z</published>
+    <published>2016-03-15T15:00:00.000Z</published>
     <updated>2016-07-28T07:56:48.000Z</updated>
     
     <content type="html">&lt;p&gt;自己常用的windows软件列表。&lt;/p&gt;
@@ -452,7 +484,7 @@
     <title>Using and Currying in Java</title>
     <link href="https://winry.me/2016/03/09/using-and-currying-in-java/"/>
     <id>https://winry.me/2016/03/09/using-and-currying-in-java/</id>
-    <published>2016-03-08T16:00:00.000Z</published>
+    <published>2016-03-08T15:00:00.000Z</published>
     <updated>2016-03-09T15:37:06.838Z</updated>
     
     <content type="html">&lt;p&gt;C#里面有一个常用的关键字using,它可以保证资源在使用完毕后被正常关闭,使得程序员不必手动的关闭资源.&lt;br&gt;use using:&lt;br&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;using&lt;/span&gt; (Font font1 = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Font(&lt;span class=&quot;string&quot;&gt;&quot;Arial&quot;&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;10.0f&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  byte charset = font1.GdiCharSet;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -486,7 +518,7 @@
     <title>Pattern matching in Java(续)</title>
     <link href="https://winry.me/2015/11/30/pattern-matching-in-java(%E7%BB%AD)/"/>
     <id>https://winry.me/2015/11/30/pattern-matching-in-java(续)/</id>
-    <published>2015-11-29T16:00:00.000Z</published>
+    <published>2015-11-29T15:00:00.000Z</published>
     <updated>2016-03-09T15:38:54.700Z</updated>
     
     <content type="html">&lt;p&gt;上一篇文章里翻译了java8以前模式匹配在java中的使用情况.&lt;br&gt;这一篇文章会简单介绍cyclops库中模式匹配的相关内容.&lt;br&gt;&lt;a href=&quot;https://github.com/aol/cyclops&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;cyclops&lt;/a&gt;是基于java8的一个扩展库,包括了模式匹配,stream工具类,monad,元组等内容.&lt;/p&gt;
@@ -513,7 +545,7 @@
     <title>Pattern matching in Java(翻译)</title>
     <link href="https://winry.me/2015/11/04/pattern-matching-in-java/"/>
     <id>https://winry.me/2015/11/04/pattern-matching-in-java/</id>
-    <published>2015-11-03T16:00:00.000Z</published>
+    <published>2015-11-03T15:00:00.000Z</published>
     <updated>2016-03-09T15:39:13.832Z</updated>
     
     <content type="html">&lt;p&gt;模式匹配是一种来源于函数式语言的特性,它有点像java中的switch,&lt;br&gt;然而比switch更加强大,它除了能对值进行匹配之外还能对类型进行匹配.&lt;br&gt;配合scala的模板类,它能写出非常简洁的类型、值匹配的代码.&lt;br&gt;当你需要根据对象的类型或者值的不同来进行不同的逻辑处理时,就应该使用模式匹配.&lt;br&gt;下面的内容将主要针对其中的&lt;strong&gt;类型&lt;/strong&gt;匹配展开.&lt;/p&gt;
@@ -561,7 +593,7 @@
     <title>java内存探险(待续)</title>
     <link href="https://winry.me/2015/10/13/java%E5%86%85%E5%AD%98%E6%8E%A2%E9%99%A9/"/>
     <id>https://winry.me/2015/10/13/java内存探险/</id>
-    <published>2015-10-12T16:00:00.000Z</published>
+    <published>2015-10-12T15:00:00.000Z</published>
     <updated>2016-02-15T14:44:56.565Z</updated>
     
     <content type="html">&lt;p&gt;之前写的b站直播订阅通知的程序内存占用始终不能满意,&lt;br&gt;想到java是跑在jvm上的,&lt;br&gt;是否jvm本身就需要占用那么多的内存呢,&lt;br&gt;决定打开jconsole来看一看.&lt;br&gt;java内存分为堆和非堆,来看定义:&lt;/p&gt;
@@ -612,7 +644,7 @@
     <title>博客启用https(支持hexo)</title>
     <link href="https://winry.me/2015/10/09/%E5%8D%9A%E5%AE%A2%E5%90%AF%E7%94%A8https/"/>
     <id>https://winry.me/2015/10/09/博客启用https/</id>
-    <published>2015-10-08T16:00:00.000Z</published>
+    <published>2015-10-08T15:00:00.000Z</published>
     <updated>2016-02-15T14:41:04.930Z</updated>
     
     <content type="html">&lt;ol&gt;
@@ -647,7 +679,7 @@
     <title>Java8 Mixin</title>
     <link href="https://winry.me/2015/09/15/java8-mixin/"/>
     <id>https://winry.me/2015/09/15/java8-mixin/</id>
-    <published>2015-09-14T16:00:00.000Z</published>
+    <published>2015-09-14T15:00:00.000Z</published>
     <updated>2016-07-01T15:43:26.602Z</updated>
     
     <content type="html">&lt;p&gt;java8开始接口支持了默认方法,从此mixin也变为可能了.&lt;/p&gt;

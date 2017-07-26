@@ -4,6 +4,20 @@
   
     
     <entry>
+      <title><![CDATA[exception handling and dynamic scope]]></title>
+      <url>https://winry.me/2017/07/26/exception-handling%20-and-dynamic-scope/</url>
+      <content type="html"><![CDATA[<p>最近在上coursera上的programming language的时候，Dan提到exception handling和dynamic scope很相似，但是只是简单的提了一下，并没有说哪里相似，接下来就比较一下这两者。</p>
+<p>先看一个例子。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">x</span> =</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(</span>) = x</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span>(</span>) = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">val</span> <span class="title">x</span> =</span> <span class="number">2</span></span><br><span class="line">  f()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里f2()的值是什么呢，在scala里是1，因为scala用的是lexical scope，如果是dynamic scope那就是2。</p>
+<p>为了说明lexical scope和dynamic scope，首先要搞清楚自由变量的概念，自由变量就是函数里除了传进来的参数以外的变量，在f()里面就是x，因为x不是f()的参数。</p>
+<p>在lexical scope的情况下，自由变量的值是函数定义时自由变量的值。这时候f()里面的x就是1。实际上这时候函数包括了两个部分，一部分是它的code，另一部分是自由变量和它的值的映射，这两个部分合起来称为闭包。函数调用的时候自由变量的值是确定的，就是闭包里的值。</p>
+<p>在dynamic scope的情况下，自由变量的值就不太好确定了，函数调用的时候会去查runtime stack的符号表，自由变量最后的值（后面的值会覆盖前面的）就是就是它这次函数调用里的值。</p>
+<p>最后来看一下exception handling是怎么一回事，假设我们在代码的很多地方，handle了同一个异常，我们光看代码是不能确定最后哪个handling会起作用的。当一个异常发生时，只有在runtime，函数调用栈顶的那个函数最后会handle那个异常。是不是和dynamic scope有点相似呢。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[spark combineByKey]]></title>
       <url>https://winry.me/2016/12/01/spark-combineByKey/</url>
       <content type="html"><![CDATA[<p>combineByKey是spark的一个pair transformation。当你需要根据key来合并你的value，而你期望的合并后的value的返回类型和原本value的类型不同的时候你就会用到它（reduceByKey的返回类型则和原本的pair相同）。用groupByKey再对groupBy的结果处理最终可以达到相同的效果，但是性能却不一样，实际上combineByKey提供的是更高级的抽象。性能上的差异可以看这篇文章:<a href="https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html" target="_blank" rel="external">avoid groupByKey</a></p>

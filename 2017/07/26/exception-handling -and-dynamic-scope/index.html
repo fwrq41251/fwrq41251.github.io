@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="dynamic scope," />
 
 
 
@@ -86,15 +86,25 @@
 
 
 
-<meta name="description" content="acg&amp;programming sharing">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Winry's">
-<meta property="og:url" content="https://winry.me/tags/shiro/index.html">
+<meta name="description" content="最近在上coursera上的programming language的时候，Dan提到exception handling和dynamic scope很相似，但是只是简单的提了一下，并没有说哪里相似，接下来就比较一下这两者。
+先看一个例子。
+12345678val x = 1def f() = xdef f2() = &amp;#123;  val x = 2  f()&amp;#125;
+这里f2()的值是什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="exception handling and dynamic scope">
+<meta property="og:url" content="https://winry.me/2017/07/26/exception-handling -and-dynamic-scope/index.html">
 <meta property="og:site_name" content="Winry's">
-<meta property="og:description" content="acg&amp;programming sharing">
+<meta property="og:description" content="最近在上coursera上的programming language的时候，Dan提到exception handling和dynamic scope很相似，但是只是简单的提了一下，并没有说哪里相似，接下来就比较一下这两者。
+先看一个例子。
+12345678val x = 1def f() = xdef f2() = &amp;#123;  val x = 2  f()&amp;#125;
+这里f2()的值是什么">
+<meta property="og:updated_time" content="2017-07-26T16:56:10.057Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Winry's">
-<meta name="twitter:description" content="acg&amp;programming sharing">
+<meta name="twitter:title" content="exception handling and dynamic scope">
+<meta name="twitter:description" content="最近在上coursera上的programming language的时候，Dan提到exception handling和dynamic scope很相似，但是只是简单的提了一下，并没有说哪里相似，接下来就比较一下这两者。
+先看一个例子。
+12345678val x = 1def f() = xdef f2() = &amp;#123;  val x = 2  f()&amp;#125;
+这里f2()的值是什么">
 
 
 
@@ -118,7 +128,7 @@
         window.location.protocol = "https";
 </script>
 
-  <title> 標籤: shiro | Winry's </title>
+  <title> exception handling and dynamic scope | Winry's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
@@ -148,7 +158,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -269,46 +279,162 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        shiro
-        <small>標籤</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                exception handling and dynamic scope
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2017-07-26T00:00:00+09:00" content="2017-07-26">
+              2017-07-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/26/exception-handling -and-dynamic-scope/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/26/exception-handling -and-dynamic-scope/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o">本文总阅读量</i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>最近在上coursera上的programming language的时候，Dan提到exception handling和dynamic scope很相似，但是只是简单的提了一下，并没有说哪里相似，接下来就比较一下这两者。</p>
+<p>先看一个例子。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">x</span> =</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(</span>) = x</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span>(</span>) = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">val</span> <span class="title">x</span> =</span> <span class="number">2</span></span><br><span class="line">  f()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里f2()的值是什么呢，在scala里是1，因为scala用的是lexical scope，如果是dynamic scope那就是2。</p>
+<p>为了说明lexical scope和dynamic scope，首先要搞清楚自由变量的概念，自由变量就是函数里除了传进来的参数以外的变量，在f()里面就是x，因为x不是f()的参数。</p>
+<p>在lexical scope的情况下，自由变量的值是函数定义时自由变量的值。这时候f()里面的x就是1。实际上这时候函数包括了两个部分，一部分是它的code，另一部分是自由变量和它的值的映射，这两个部分合起来称为闭包。函数调用的时候自由变量的值是确定的，就是闭包里的值。</p>
+<p>在dynamic scope的情况下，自由变量的值就不太好确定了，函数调用的时候会去查runtime stack的符号表，自由变量最后的值（后面的值会覆盖前面的）就是就是它这次函数调用里的值。</p>
+<p>最后来看一下exception handling是怎么一回事，假设我们在代码的很多地方，handle了同一个异常，我们光看代码是不能确定最后哪个handling会起作用的。当一个异常发生时，只有在runtime，函数调用栈顶的那个函数最后会handle那个异常。是不是和dynamic scope有点相似呢。</p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/05/13/shiro-login/" itemprop="url">
-              
-                <span itemprop="name">shiro登录</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-05-13T00:00:00+09:00"
-              content="2016-05-13" >
-          05-13
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/dynamic-scope/" rel="tag">#dynamic scope</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/01/spark-combineByKey/" rel="next" title="spark combineByKey">
+                <i class="fa fa-chevron-left"></i> spark combineByKey
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575a18e0624c2988" async = "async" ></script>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -316,6 +442,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -335,8 +472,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://winry.me/img/avatar1.jpg"
@@ -413,6 +559,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目錄</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -525,6 +682,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
@@ -541,9 +702,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'winry';
-      var disqus_identifier = 'tags/shiro/index.html';
-      var disqus_title = "";
-      var disqus_url = '';
+      var disqus_identifier = '2017/07/26/exception-handling -and-dynamic-scope/';
+      var disqus_title = "exception handling and dynamic scope";
+      var disqus_url = 'https://winry.me/2017/07/26/exception-handling -and-dynamic-scope/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -554,6 +715,8 @@
       }
 
       run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
       
     </script>
   
