@@ -1,0 +1,22 @@
+{{ define "main" }}
+<main>
+    <h1>{{ .Title }}</h1>
+    
+    <!-- Pagefind UI 的 HTML 容器 -->
+    <div id="search"></div>
+
+    <!-- 引入 Pagefind UI 的 CSS 和 JS -->
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+    <script src="/pagefind/pagefind-ui.js"></script>
+    
+    <!-- 初始化 Pagefind UI -->
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            new PagefindUI({ 
+                element: "#search",
+                showSubResults: true // 显示更详细的子结果
+            });
+        });
+    </script>
+</main>
+{{ end }}

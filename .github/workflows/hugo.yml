@@ -55,6 +55,10 @@ jobs:
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
+      - name: Build search index with Pagefind
+        run: |
+          # 从 npm 下载并运行 Pagefind，--site 参数指向 Hugo 的输出目录
+          npx -y pagefind --site public
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
