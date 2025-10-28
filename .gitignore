@@ -2,7 +2,11 @@
 /public/
 /resources/
 hugo_stats.json
+docs/
 
 # OS
 .DS_Store
 *.pem
+
+# Node
+node_modules/

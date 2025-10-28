@@ -1,0 +1,15 @@
+{
+  "name": "fwrq41251.github.io",
+  "version": "1.0.0",
+  "description": "Personal blog built with Hugo and Pagefind for search.",
+  "scripts": {
+    "start": "hugo server",
+    "build": "hugo && npx pagefind --site public",
+    "build-search": "npx pagefind --site public",
+    "serve-full": "hugo -D && npx pagefind --site public && npx serve public"
+  },
+  "devDependencies": {
+    "pagefind": "^1.2.0",
+    "serve": "^14.2.1"
+  }
+}
