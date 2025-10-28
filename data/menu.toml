@@ -20,6 +20,9 @@ title = "tags"
 url = "tags"
 
 [[entries]]
+title = "search"
+url = "search"
+
+[[entries]]
 title = "rss"
 url = "index.xml"
-
