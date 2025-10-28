@@ -1,54 +1,12 @@
 baseURL = "https://fwrq41251.github.io/"
 languageCode = "zh-cn"
-title = "winry's" # 或者您喜欢的任何标题
-theme = "PaperMod"
-
-[outputs]
-  home = ["HTML", "RSS", "JSON"] # 关键是添加 "JSON"
-
-[[menu.main]]
-    identifier = "archives"
-    name = "Archives"
-    url = "/archives/"
-    weight = 10
-
-[[menu.main]]
-    identifier = "tags"
-    name = "Tags"
-    url = "/tags/"
-    weight = 20
-
-# [[menu.main]]
-#     identifier = "about"
-#     name = "关于我"
-#     url = "/about/"
-#     weight = 30
-
-[[menu.main]]
-  identifier = "search"
-  name = "Search"
-  url = "/search/"
-  weight = 40
+title = "winry's"
+# theme = "no-style-please"
 
 [params]
   defaultTheme = "auto" 
-  ShowReadingTime = true      # 显示文章阅读时间 (您已经启用了)
-  ShowShareButtons = true     # 在文章末尾显示社交分享按钮
-  ShowPostNavLinks = true     # 在文章末尾显示“上一篇/下一篇”的导航链接
-  ShowBreadCrumbs = true      # 显示面包屑导航 (例如: Home > Posts > My Post)
-  ShowCodeCopyButtons = true  # 为代码块启用一键复制按钮 (对技术博客非常有用!)
-  # 是否默认展开文章目录 (TOC - Table of Contents)
-  # 也可以在单篇文章的 Front Matter 中用 toc: true 来控制
-  TocOpen = false
 
-  [params.homeInfoParams]
-    Title = "🌙"
-    Content = """
-Things about java, vim, linux.
-"""
-  [[params.socialIcons]]
-    name = "github"
-    url = "https://github.com/fwrq41251"
-  [[params.socialIcons]]
-    name = "twitter"
-    url = "https://twitter.com/winryko"
+[module]
+  [[module.imports]]
+    path = "no-style-please"
+    ignoreFiles = ["content/**"]
