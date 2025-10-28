@@ -1,0 +1,1 @@
+case class in class cant be used as key on spark(equals function failed), but works fine when in object.
