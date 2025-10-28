@@ -1,0 +1,9 @@
+baseURL = "https://fwrq41251.github.io/"
+languageCode = "zh-cn"
+title = "winry's" # 或者您喜欢的任何标题
+theme = "PaperMod"
+
+# 您可以从主题的文档中找到更多可配置的参数
+[params]
+  defaultTheme = "auto" 
+  ShowReadingTime = true
